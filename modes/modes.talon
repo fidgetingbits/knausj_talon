@@ -1,7 +1,11 @@
-
 not mode: sleep
 not mode: user.presentation
 -
+^(talent|talon) mode$:
+    mode.disable("sleep")
+    mode.disable("dictation")
+    mode.enable("command")
+    app.notify("Command Mode")
 ^dictation mode$:
     mode.disable("sleep")
     mode.disable("command")
@@ -9,8 +13,6 @@ not mode: user.presentation
     app.notify("Dictation Mode")
     user.code_clear_language_mode()
     mode.disable("user.gdb")
-
-
 ^presentation mode$:
     user.switcher_hide_running()
     user.history_disable()

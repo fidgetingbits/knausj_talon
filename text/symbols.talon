@@ -30,10 +30,10 @@ empty escaped ticks:
     insert("\\'\\'")
     key(left)
     key(left)
-(empty parens | args):
+empty round:
     insert("()")
     key(left)
-empty (squares | list):
+empty (square | list):
     insert("[]")
     key(left)
 empty (bracket | braces):
@@ -46,13 +46,17 @@ empty coals:
     insert("::")
     key(left)
 
-[pair] (parens|args):
+[pair] (round):
     insert("()")
     edit.left()
-[pair] (brackets|braces): 
+escaped (round):
+    insert("\\(\\)")
+    edit.left()
+    edit.left()
+[pair] (brackets|braces):
     insert("{}")
     edit.left()
-[pair] squares: 
+[pair] (square|squares):
     insert("[]")
     edit.left()
 [pair] angles: 
@@ -78,7 +82,7 @@ angle that:
 (bracket | brace) that:
     text = edit.selected_text()
     user.paste("{{{text}}}")
-(parens | args) that:
+round that:
     text = edit.selected_text()
     user.paste("({text})")
 percent that:
@@ -87,3 +91,9 @@ percent that:
 quote that:
     text = edit.selected_text()
     user.paste('"{text}"')
+glob line:
+    insert("s///g")
+    key(left:3)
+
+    
+

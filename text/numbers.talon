@@ -4,7 +4,7 @@ count from <number_small> (to|till|through) <number_small>: user.count_numbers(n
 numb <user.number_string>: "{number_string}"
 # XXX - it would be nice to make dot <user.number_string> repeatable together
 # or just used dotted formatter adapted for numbers
-numb <user.number_string> dot <user.number_string>: "{number_string}.{number_string}"
+numb <user.number_string> dot <user.number_string>: "{number_string_1}.{number_string_2}"
 negative <user.number_string>: "-{number_string}"
 # XXX - should handle more complex hexadecimal number invocations
 (hex|hexadecimal) [(num|number)] <user.number_string>: "0x{number_string}"

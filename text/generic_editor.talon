@@ -21,16 +21,16 @@ find <user.unmodified_key>:
 (go word right|word):
     edit.word_right()
 
-go left:
+[go] left:
     edit.left()
 
-go right:
+[go] right:
     edit.right()
 
-go up:
+(go up|north):
     edit.up()
 
-go down:
+(go down|south):
     edit.down()
 
 (go line start|bend):
@@ -70,10 +70,10 @@ select left:
 select right:
     edit.extend_right()
 
-select up:
+select (up|north):
     edit.extend_line_up()
 
-select down:
+select (down|south):
     edit.extend_line_down()
 
 select word:
@@ -145,9 +145,9 @@ clear way down:
     edit.extend_file_end()
     edit.delete()
 
-clear all:
-    edit.select_all()
-    edit.delete()
+#clear all:
+#    edit.select_all()
+#    edit.delete()
 
 #copy commands
 copy all:

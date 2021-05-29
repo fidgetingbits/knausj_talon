@@ -13,7 +13,7 @@ op lambda: user.code_operator_lambda()
 op subscript: user.code_operator_subscript()
 
 #assignment
-op (equals | assign): user.code_operator_assignment()
+[op] assign: user.code_operator_assignment()
 
 #math operators
 op (minus | subtract): user.code_operator_subtraction()

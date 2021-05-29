@@ -10,13 +10,15 @@ ctx = Context()
 
 # paths that will work with pivot command
 linux_folder_paths = {
-
     "user services": "~/.config/systemd/user/",
     "services": "/etc/systemd/system/",
     "sessions": "~/.vim/sessions/",
     "plugins": "~/.vim/plugged/",
     "temp": "/tmp/",
     "config": "/etc/",
+    "it see": "/etc/",
+    "grub": "/etc/default/grub",
+    "boot config": "/boot/grub/grub.cfg",
     "user": "/usr/",
     "user bin": "/usr/bin/",
     "user lib": "/usr/lib/",
@@ -28,6 +30,8 @@ linux_folder_paths = {
     "shell functions": "~/.ohmyzsh/custom/functions/",
     "dot files": "~/dotfiles/",
     "custom snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
+    "journal config": "/etc/systemd/journald.conf", 
+    "back": "../",
 }
 
 linux_file_paths = {
@@ -45,11 +49,7 @@ linux_file_paths = {
 ctx.lists["user.folder_paths_public"] = {
     **linux_folder_paths,
 }
-# this is used for specific commands like pivot
-ctx.lists["user.folder_paths_private"] = {
-    **linux_folder_paths,
-}
-
+ctx.lists["user.folder_paths_private"] = {}
 
 # this is used for any path based commands that don't care of about files or
 # folder difference

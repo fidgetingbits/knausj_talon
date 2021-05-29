@@ -26,7 +26,7 @@ settings():
     # what command to use for selection based screenshots
     user.screenshot_selection_command = "scrot -s"
     # the default is now 300ms
-    speech.timeout = 0.150
+    speech.timeout = 0.175
     speech.record_all = 1
     #speech.gain = 100
     speech.normalize = 1
@@ -38,10 +38,10 @@ settings():
     #mouse grid and friends put the number one on the bottom left (vs on the top left)
     user.grids_put_one_bottom_left = 1
     # the number of lines of command history to display by default
-    user.command_history_display = 10
+    user.command_history_display = 3
     # the number of lines of command history to keep in total;
     # "command history more" to display all of them, "command history less" to restore
-    user.command_history_size = 50
+    user.command_history_size = 20
 
     # Uncomment the below to enable context-sensitive dictation. This determines
     # how to format (capitalize, space) dictation-mode speech by selecting &

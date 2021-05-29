@@ -12,9 +12,13 @@ sleep all:
     app.notify("Talon Sleep All Mode")
 
 go to sleep:
+    # XXX - should go through and disable all of the currently activated modes,
+    # in wake up should reactivate all of them
+    mode.disable("command")
     mode.enable("sleep")
+    #user.engine_sleep()
     speech.disable()
-    user.talon_sleep_callback()
+    #user.talon_sleep_callback()
     app.notify("Talon Sleep")
 
 wake up:
@@ -22,4 +26,4 @@ wake up:
     speech.enable()
     mode.enable("command")
     app.notify("Talon Awake")
-    user.talon_wake_callback()
+    #user.talon_wake_callback()
