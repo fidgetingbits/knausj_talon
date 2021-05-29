@@ -10,6 +10,7 @@ docker build (tag|tagged):
     key("left:3")
 docker pull: "sudo docker pull "
 docker kill: "sudo docker kill "
+docker kill all: "sudo docker stop $(sudo docker ps -a -q)\n"
 docker run: "sudo docker run -d "
 docker run interactive: "sudo docker run -it --rm "
 docker (log|logs): "sudo docker logs "
@@ -48,6 +49,13 @@ docker [container] list:
     insert("sudo docker ps\n")
 docker [container] remove:
     insert("sudo docker rm ")
+docker [container] remove all:
+    insert("sudo docker rm $(sudo docker ps -a -q)\n")
+docker [container] remove and kill all:
+    insert("sudo docker stop $(sudo docker ps -a -q)\n")
+    insert("sudo docker rm $(sudo docker ps -a -q)\n")
+
+
 docker [container] stop: "sudo docker stop "
 docker [container] copy:
     insert("sudo docker cp ")
@@ -65,6 +73,12 @@ docker volume inspect:
     insert("sudo docker volume inspect ")
 docker volume remove:
     insert("sudo docker volume rm ")
+
+# system
+docker system prune:
+    insert("sudo docker system prune")
+docker system prune all:
+    insert("sudo docker system prune -a")
 
 ## docker Compose
 docker compose up: "docker-compose up\n"
