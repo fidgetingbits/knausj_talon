@@ -38,13 +38,13 @@ camera overlay: eye_mouse.camera_overlay.toggle()
 # single click
 (touch|chiff): user.mouse_click(0, 1)
 # right click
-(righty|rick): user.mouse_click(1, 1)
-# middle click
-midclick: user.mouse_click(2, 1)
-# double click
-dyke: user.mouse_click(0, 2)
-# triple click
-trike: user.mouse_click(0, 3)
+#(righty|rick): user.mouse_click(1, 1)
+## middle click
+#midclick: user.mouse_click(2, 1)
+## double click
+#dyke: user.mouse_click(0, 2)
+## triple click
+#trike: user.mouse_click(0, 3)
 
 
 #see keys.py for modifiers.
@@ -55,14 +55,14 @@ trike: user.mouse_click(0, 3)
 #shift
 #super = windows key
 
-<user.modifiers> (touch|chiff):
-    key("{modifiers}:down")
-    user.mouse_click(0, 1)
-    key("{modifiers}:up")
-<user.modifiers> (righty|rick):
-    key("{modifiers}:down")
-    user.mouse_click(1, 1)
-    key("{modifiers}:up")
+#<user.modifiers> (touch):
+#    key("{modifiers}:down")
+#    user.mouse_click(0, 1)
+#    key("{modifiers}:up")
+#<user.modifiers> (righty|rick):
+#    key("{modifiers}:down")
+#    user.mouse_click(1, 1)
+#    key("{modifiers}:up")
 
 # move to eye location without clicking
 hover: user.mouse_move_cursor()
