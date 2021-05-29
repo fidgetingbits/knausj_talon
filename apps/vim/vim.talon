@@ -46,6 +46,7 @@ tag(): user.vim_fern
 tag(): user.vim_fern_mapping_fzf
 tag(): user.vim_floaterm
 tag(): user.vim_fzf
+tag(): user.vim_telescope
 tag(): user.vim_mkdx
 tag(): user.vim_nerdtree
 tag(): user.vim_obsession
@@ -140,7 +141,7 @@ force (close|quit):
     user.vim_command_mode_exterm(":q!\n")
 file (edit|open):
     user.vim_command_mode_exterm(":e ")
-reload [vim] config:
+(reload [vim] config|config reload):
     user.vim_command_mode_exterm(":so $MYVIMRC\n")
 
 ###
@@ -167,9 +168,9 @@ reload [vim] config:
 # XXX - I'm not sure these are well usable from the terminal?
 jump list show: user.vim_command_mode_exterm(":jumps\n")
 jump list clear: user.vim_command_mode_exterm(":clearjumps\n")
-go (last|prev|previous) jump [entry]: 
+jump last [entry]: 
     user.vim_normal_mode_exterm_key("ctrl-o")
-go (next|newer) jump [entry]: user.vim_normal_mode_exterm_key("ctrl-i")
+jump next [entry]: user.vim_normal_mode_exterm_key("ctrl-i")
 
 # scrolling and page position
 # NOTE counted scrolling his handled in vim.py
@@ -286,6 +287,7 @@ new (empty|unnamed) (vertical|v) split:
     user.vim_command_mode_exterm(":vnew\n")
 
 # navigating splits
+# XXX - we could leverage split.talon stuff here?
 split <user.vim_arrow>:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
@@ -328,19 +330,19 @@ sprite:
     key(l)
 
 # split left
-spleff:
+spliff:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(h)
 
 # split top left
-splop:
+splot:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(t)
 
 # split bottom left
-splot:
+splunk:
     user.vim_set_normal_mode_exterm()
     key(ctrl-w)
     key(t)
@@ -478,7 +480,7 @@ action(app.tab_next): user.vim_command_mode_exterm(":tabnext\n")
 [go] tab (left|prev|previous): user.vim_command_mode_exterm(":tabprevious\n")
 [go] tab first: user.vim_command_mode_exterm(":tabfirst\n")
 [go] tab last: user.vim_command_mode_exterm(":tablast\n")
-([go] tab flip|tipper): user.vim_normal_mode_exterm("g\t")
+[go] tab flip: user.vim_normal_mode_exterm("g\t")
 tab edit: user.vim_command_mode_exterm(":tabedit ")
 tab move right: user.vim_command_mode_exterm(":tabm +\n")
 tab move left: user.vim_command_mode_exterm(":tabm -\n")
@@ -540,29 +542,29 @@ set file format unix:
 # Marks
 ###
 # TODO - need to fix this "True" for terminal return stuff
-(new|create) mark <user.letter>:
+mark (new|create) <user.letter>:
     user.vim_normal_mode_exterm_keys("m {letter}", "True")
 
-(new|create) global mark <user.upper_letter>:
+mark global [(new|create)] <user.upper_letter>:
     user.vim_normal_mode_exterm_keys("m {upper_letter}", "True")
 
-(go|jump) [to] mark <user.letter>:
+(marker|mark jump [to]) <user.letter>:
     user.vim_set_normal_mode_exterm()
     key(`)
     key(letter)
 
-((go|jump) [to] global mark|gallop) <user.upper_letter>:
+(global mark|gallop) (go|jump) [to] <user.upper_letter>:
     user.vim_set_normal_mode_exterm()
     key(`)
     key(upper_letter)
 
-(del|delete) (mark|marks):
+(mark|marks) (del|delete|remove):
     user.vim_command_mode_exterm(":delmarks ")
-(del|delete) all (mark|marks):
+(mark|marks) (del|delete|remove) all :
     user.vim_command_mode_exterm(":delmarks! ")
-(list|show) [all] marks:
+(mark|marks) (list|show) [all] :
     user.vim_command_mode_exterm(":marks\n")
-(list|show) specific marks:
+(mark|marks) (list|show) specific :
     user.vim_command_mode_exterm(":marks ")
 
 ###
@@ -585,7 +587,7 @@ session load: user.vim_command_mode_exterm(":source ~/.vim/sessions/")
     insert("{letter}")
     key(')
 
-(paste from register|pastor) <user.unmodified_key>: user.vim_any_motion_mode_exterm('"{unmodified_key}p')
+(paste from|pastor) [register] <user.unmodified_key>: user.vim_any_motion_mode_exterm('"{unmodified_key}p')
 
 
 ###
@@ -600,7 +602,7 @@ normal mode: user.vim_set_normal_mode_np()
 insert mode: user.vim_set_insert_mode()
 terminal mode: user.vim_set_terminal_mode()
 # command mode: user.vim_set_command_mode()
-command mode: user.vim_any_motion_mode_exterm_key(":")
+command [line] mode: user.vim_any_motion_mode_exterm_key(":")
 (replace mode|overwrite): user.vim_set_replace_mode()
 visual replace mode: user.vim_set_visual_replace_mode()
 visual mode: user.vim_set_visual_mode()
@@ -608,7 +610,8 @@ visual mode: user.vim_set_visual_mode()
 [visual] block mode: user.vim_set_visual_block_mode()
 
 # sort of quasi-modes - see vim_command_line.talon
-command search [mode]: user.vim_any_motion_mode_exterm_key("q:")
+show history: user.vim_command_mode(":hist\n")
+command line (search|history) [mode]: user.vim_any_motion_mode_exterm_key("q:")
 search search [mode]: user.vim_any_motion_mode_exterm_key("q/")
 
 ###
@@ -617,19 +620,20 @@ search search [mode]: user.vim_any_motion_mode_exterm_key("q/")
 search:
     user.vim_any_motion_mode_exterm("/\\c")
 
-search sensitive:
+search strict:
     key(escape)
     user.vim_any_motion_mode_exterm("/\\C")
 
-search <user.text>$:
-    user.vim_any_motion_mode_exterm("/\\c{text}\n")
+#search <user.text>$:
+#    user.vim_any_motion_mode_exterm("/\\c{text}\n")
 
-search <user.text> sensitive$:
-    user.vim_any_motion_mode_exterm("/\\C{text}\n")
+#search <user.text> sensitive$:
+#    user.vim_any_motion_mode_exterm("/\\C{text}\n")
 
 search <user.ordinals> <user.text>$:
     user.vim_any_motion_mode_exterm("{ordinals}/\\c{text}\n")
 
+# XXX - probably rename these
 search (reversed|reverse) <user.text>$:
     user.vim_any_motion_mode_exterm("?\\c{text}\n")
 
@@ -706,12 +710,17 @@ messages show:
 # WARNING: clobbers register a
 messages extract:
     user.vim_command_mode_exterm(":vsplit\n")
-    user.vim_command_mode_exterm(":enew\n")
-    user.vim_command_mode_exterm(":redir @a\n")
-    user.vim_command_mode_exterm(":silent messages\n")
-    user.vim_command_mode_exterm(":redir END\n")
-    user.vim_normal_mode_exterm('"ap')
-    user.vim_normal_mode_exterm('G')
+    sleep(500ms)
+    user.vim_command_mode(":enew\n")
+    sleep(1000ms)
+    user.vim_command_mode(":redir @a\n")
+    sleep(200ms)
+    user.vim_command_mode(":silent messages\n")
+    sleep(200ms)
+    user.vim_command_mode(":redir END\n")
+    sleep(200ms)
+    user.vim_normal_mode('"ap')
+    user.vim_normal_mode('G')
 
 
 ###

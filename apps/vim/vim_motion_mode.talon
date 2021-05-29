@@ -29,6 +29,7 @@ tag(): user.vim_youcompleteme
 tag(): user.vim_easy_align
 tag(): user.vim_eunuch
 tag(): user.vim_rooter
+tag(): user.vim_suda
 tag(): user.vim_treesitter
 tag(): user.vim_treesitter_textobjects
 
@@ -39,17 +40,17 @@ tag(): user.vim_treesitter_textobjects
 # have counting, etc
 # XXX - I still need to investigate whether or not a subset of these should be
 # exposed in terminal mode
-<user.vim_normal_counted_motion_command>$:
+<user.vim_normal_counted_motion_command>:
     insert("{vim_normal_counted_motion_command}")
-<user.vim_normal_counted_motion_keys>$:
+<user.vim_normal_counted_motion_keys>:
     key("{vim_normal_counted_motion_keys}")
-<user.vim_motions_all_adjust>$:
+<user.vim_motions_all_adjust>:
     insert("{vim_motions_all_adjust}")
-<user.vim_normal_counted_action>$:
+<user.vim_normal_counted_action>:
     insert("{vim_normal_counted_action}")
-<user.vim_normal_counted_actions_keys>$:
+<user.vim_normal_counted_actions_keys>:
     key("{vim_normal_counted_actions_keys}")
-<user.vim_counted_motion_command_with_ordinals>$:
+<user.vim_counted_motion_command_with_ordinals>:
     insert("{vim_counted_motion_command_with_ordinals}")
 
 
@@ -73,17 +74,25 @@ file (refresh|reload):
 print working directory: user.vim_command_mode(":pwd\n")
 pivot file: 
     user.vim_command_mode(":lcd %:p:h\n")
-pivot (parent|back): 
-    user.vim_command_mode(":lcd ..\n")
+#pivot (parent|back): 
+#    user.vim_command_mode(":lcd ..\n")
 pivot select: 
     user.vim_command_mode(":lcd ")
+# Note below includes pivot back
+pivot <user.folder_paths>:
+    user.vim_command_mode(":lcd {folder_paths}\n")
 file yank path: 
     user.vim_command_mode(":let @+ = expand('%:p')\n")
-
+file recover:
+    user.vim_command_mode(":recover")
 
 
 # For when the VIM cursor is hovering on a path
-open [this] link: user.vim_normal_mode("gx")
+# NOTE: gx only works if you use netrw were custom mapped
+#open [this] link: user.vim_normal_mode("gx")
+open [this] link: 
+    user.vim_command_mode(":!xdg-open ")
+    key(ctrl-r ctrl-a enter)
 open this file: user.vim_normal_mode("gf")
 open this file offset: user.vim_normal_mode("gF")
 (river this|open this file in [split|window]):
@@ -106,7 +115,7 @@ matching <user.symbol_key>: user.vim_any_motion_mode("f{symbol_key}%")
 
 # ctags/symbol
 tag jump: user.vim_normal_mode_key("ctrl-]")
-tag pop: user.vim_normal_mode_key("ctrl-t")
+tag back: user.vim_normal_mode_key("ctrl-t")
 
 ###
 # Text editing, copying, and manipulation
@@ -127,7 +136,7 @@ change line: user.vim_normal_mode("cc")
 # XXX - technically these might be doable in command line mode, but life should
 # become default talon and actions
 # XXX - this might be suited for some automatic motion thing in vim.py
-swap (char|characters):
+swap (bytes|characters):
     user.vim_normal_mode("x")
     user.vim_normal_mode("p")
 
@@ -140,7 +149,7 @@ swap words:
 swap lines:
     user.vim_normal_mode("dd")
     user.vim_normal_mode("p")
-swap paragraph:
+swap (paragraph|graph):
     user.vim_normal_mode("d}}")
     user.vim_normal_mode("p")
 patch <user.unmodified_key>:
@@ -207,8 +216,9 @@ yank line <number>$:
 #     user.vim_command_mode("p")
 (duplicate|paste) line <number>$:
     user.vim_command_mode(":{number}y\n")
-    user.vim_command_mode("p")
+    user.vim_normal_mode("p")
 (dup|duplicate) line: user.vim_normal_mode_np("Yp")
+
 
 paste below:
     user.vim_normal_mode_np("o")
@@ -235,7 +245,8 @@ jam:
 jam <user.unmodified_key>:
     user.vim_normal_mode_np("ea{unmodified_key}")
 
-
+chomp:
+    user.vim_normal_mode_np("ex")
 
 insert <user.text>:
     user.vim_insert_mode("{text}")
@@ -285,25 +296,26 @@ global inverted clear:
 ###
 # Macros and registers ''
 ###
-play macro <user.letter>: user.vim_any_motion_mode("@{letter}")
-(repeat|re) macro: user.vim_any_motion_mode("@@")
-record macro <user.letter>: user.vim_any_motion_mode("q{letter}")
-(finish macro|cancel macro|stop macro|stop recording): user.vim_any_motion_mode("q")
+macro play <user.letter>: user.vim_any_motion_mode("@{letter}")
+macro (again|repeat|replay): user.vim_any_motion_mode("@@")
+macro record <user.letter>: user.vim_any_motion_mode("q{letter}")
+macro stop: user.vim_any_motion_mode("q")
 
 [copy] register <user.unmodified_key> [in] to [register] <user.unmodified_key>:
     user.vim_command_mode(":let@{unmodified_key_2}=@{unmodified_key_1}\n")
 
 yank (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}y')
-#clear (into|to) register <user.unmodified_key>:
-#    user.vim_any_motion_mode('"{unmodified_key}d')
+clear (into|to) [register] <user.unmodified_key>:
+    user.vim_any_motion_mode('"{unmodified_key}d')
 
 # XXX - this should allow counted yanking, into register should become an
 # optional part of vim.py matching
-yank <user.vim_text_objects> [(into|to)] register <user.unmodified_key>:
+# XXX - I can't get this to work
+yank <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
     user.vim_any_motion_mode('"{unmodified_key}y{vim_text_objects}')
-#clear <user.vim_text_objects> [(into|to)] register <user.unmodified_key>:
-#    user.vim_any_motion_mode('"{unmodified_key}d{vim_text_objects}')
+clear <user.vim_text_objects> (into|to) [register] <user.unmodified_key>:
+    user.vim_any_motion_mode('"{unmodified_key}d{vim_text_objects}')
 
 
 ###
@@ -362,10 +374,9 @@ spell last: user.vim_normal_mode('[s')
 
 
 ###
-# Marks
+# Special Marks
 ###
 
-# special marks
 (go|jump) [to] last edit: user.vim_normal_mode("`.")
 (go|jump) [to] last insert: user.vim_normal_mode("`^")
 # differences this puts you into insert mode
@@ -382,9 +393,11 @@ jump last line: user.vim_normal_mode("''")
 # QuickFix list
 ###
 vim grep:
-    user.vim_command_mode(":vimgrep // */**")
-    key(left:6)
-
+    user.vim_command_mode(":vimgrep // **")
+    key(left:4)
+vim real grep:
+    user.vim_command_mode(":grep -r  *")
+    key(left:2)
 quick [fix] next: user.vim_command_mode(":cn\n")
 quick [fix] (back|last|prev|previous): user.vim_command_mode(":cp\n")
 quick [fix] (show|hide): user.vim_command_mode(":cw\n")
@@ -393,7 +406,10 @@ quick [fix] close: user.vim_command_mode(":ccl\n")
 quick [fix] bottom: user.vim_command_mode(":cbo\n")
 quick [fix] do:
     user.vim_command_mode(":cdo | update")
-    key(left:9)
+    key(left:8)
+quick [fix] swap:
+    user.vim_command_mode(":cdo s///g| update")
+    key(left:11)
 set auto write all: user.vim_command_mode(":set autowriteall\n")
 
 
@@ -458,58 +474,60 @@ find (reversed|previous) <user.ordinals> <user.unmodified_key>:
 # Visual Text Selection
 ###
 make ascending: user.vim_normal_mode_key("g ctrl-a")
-(visual|select|highlight) line: user.vim_visual_mode("V")
-block (visual|select|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
-(visual|select|highlight) block: user.vim_any_motion_mode_exterm_key("ctrl-v")
+(light|highlight) line: user.vim_visual_mode("V")
+block (light|highlight): user.vim_any_motion_mode_exterm_key("ctrl-v")
 
-(select|highlight) <user.vim_select_motion>:
-    user.vim_visual_mode("{vim_select_motion}")
+(light|highlight) <user.vim_light_motion>:
+    user.vim_visual_mode("{vim_light_motion}")
+block (light|highlight) <user.vim_light_motion>:
+    user.vim_visual_block_mode("{vim_light_motion}")
 
-(select|highlight) lines <number> through <number>:
+
+(light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_mode()
     insert("{number_2}G")
 
-block (select|highlight) lines <number> through <number>:
+block (light|highlight) lines <number> through <number>:
     user.vim_normal_mode_np("{number_1}G")
     user.vim_set_visual_block_mode()
     insert("{number_2}G")
 
-(select|highlight) <number_small> lines:
+(light|highlight) <number_small> lines:
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (select|highlight) <number_small> lines:
+block (light|highlight) <number_small> lines:
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(select|highlight) <number_small> lines at line <number>:
+(light|highlight) <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (select|highlight) <number_small> lines at line <number>:
+block (light|highlight) <number_small> lines at line <number>:
     user.vim_normal_mode_np("{number}G")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(select|highlight) <number_small> above:
+(light|highlight) <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_line_mode()
     insert("{number_small-1}j")
 
-block (select|highlight) <number_small> above:
+block (light|highlight) <number_small> above:
     user.vim_normal_mode_np("{number_small}k")
     user.vim_set_visual_block_mode()
     insert("{number_small-1}j")
 
-(select|highlight) (until|till) line <number>:
+(light|highlight) (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_line_mode()
     insert("''")
 
-block (select|highlight) (until|till) line <number>:
+block (light|highlight) (until|till) line <number>:
     user.vim_normal_mode_np("m'")
     insert(":{number}\n")
     user.vim_set_visual_block_mode()
@@ -517,8 +535,8 @@ block (select|highlight) (until|till) line <number>:
 
 # Greedily highlight whatever is under the cursor. Doesn't work if on the first
 # character of the entry, in which case you should say a normal motion like
-# "select big end", etc
-select this:
+# "light big end", etc
+light this:
     user.vim_normal_mode_np("B")
     user.vim_visual_mode("E")
 
@@ -541,9 +559,14 @@ run python script:
 run sandbox script:
     user.vim_normal_mode_np(":w\n")
     user.insert_cursor(":exec '!env/bin/python3 [|]'")
+
+# Change how these get displayed in splits?
 run make:
     user.vim_normal_mode_np(":w\n")
     insert(":!make\n")
+run make all:
+    user.vim_normal_mode_np(":w\n")
+    insert(":!make all\n")
 
 exec repeat:
     user.vim_normal_mode_np(":exec ")
@@ -597,4 +620,14 @@ show unsaved changes:
 
 swap again:
     key(g &)
+
+# XXX - should be switched to support any motion mode, but needs np
+# which isn't supported yet
+first <user.unmodified_key>:
+    user.vim_normal_mode_np("^f{unmodified_key}")
+
+# XXX - should be switched to support any motion mode, but needs np
+# which isn't supported yet
+last <user.unmodified_key>:
+    user.vim_normal_mode_np("$F{unmodified_key}")
 

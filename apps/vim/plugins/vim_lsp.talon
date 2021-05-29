@@ -3,7 +3,7 @@
 app: vim
 -
 
-code server info: user.vim_command_mode(":LspInfo\n")
+(code server|lisp) info: user.vim_command_mode(":LspInfo\n")
 
 #user.vim_command_mode(":lua vim.lsp.buf.clear_references()\n")
 #user.vim_command_mode(":lua vim.lsp.buf.code_action()\n")

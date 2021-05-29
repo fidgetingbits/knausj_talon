@@ -105,7 +105,7 @@ action(edit.delete_line):
 action(edit.delete):
     user.vim_insert_mode_key("backspace")
 
-# note these are for mouse highlighted copy/paste. shouldn't be used for actual
+# note these are for mouse/highlighted copy/paste. shouldn't be used for actual
 # vim commands
 action(edit.copy):
     key(ctrl-shift-c)

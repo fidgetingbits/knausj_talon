@@ -1,5 +1,4 @@
 # XXX - detect were actually specifically in something with a task before
-# triggering the tag?
 tag: user.vim_taskwiki
 and code.language: md
 -

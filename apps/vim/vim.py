@@ -11,7 +11,7 @@
 import time
 import enum
 
-from talon import Context, Module, actions, settings, ui
+from talon import Context, Module, actions, settings, ui, scripting
 
 try:
     import pynvim
@@ -28,7 +28,8 @@ app: vim
 """
 
 # talon vim plugins. see apps/vim/plugins/
-# to enable plugins you'll want to set these inside vim.talon
+# to enable plugins you'll want to set these inside the corresponding mode
+# talon file. 
 # XXX - that should just be automatically done based off the file names inside
 # of the plugin folder since it's annoying to manage
 plugin_tag_list = [
@@ -53,10 +54,12 @@ plugin_tag_list = [
     "vim_plug",
     "vim_rooter",
     "vim_signature",
+    "vim_suda",
     "vim_surround",
     "vim_taboo",
     "vim_tabular",
     "vim_taskwiki",
+    "vim_telescope",
     "vim_test",
     "vim_treesitter",
     "vim_treesitter_textobjects",
@@ -134,6 +137,7 @@ standard_counted_actions = {
     "paste": "p",
     "paste above": "P",
     "repeat": ".",
+    "peat": ".",
     "indent line": ">>",
     # Warning saying unindent line is painful
     "unindent line": "<<",
@@ -178,8 +182,9 @@ custom_counted_action = {
     "drop": "x",
     "ochre": "o",
     "orca": "O",
-    "slide left": "<<",
-    "slide right": ">>",
+#    "slide left": "<<",
+    "dedent": "<<",
+    "indent": ">>",
 }
 
 # Custom self.vim_counted_actions insertable entries
@@ -274,16 +279,19 @@ motions = {
     "tip": "e",
     "big tip": "E",
     "word": "w",
-    # "words": "w",
     "big word": "W",
     "biggie": "W",
-    # "big words": "W",
-    "tail": "ge",
-    "big tail": "gE",
+    #"tail": "ge",
+    #"big tail": "gE",
     "right": "l",
     "left": "h",
-    "down": "j",
-    "up": "k",
+    #"down": "j",
+    "south": "j",
+    # XXX - up is starting to conflict too much with me moving back to
+    # using op instead of cop in operators.talon, switching to north and
+    # south ala @rntz
+    #"up": "k",
+    "north": "k",
     "next": "n",
     "previous": "N",
     "column zero": "0",
@@ -351,13 +359,11 @@ vim_character_motions = {
     "tier": "T",
 }
 
-# NOTE: these will not work with the surround plug in, since they combo
-# commands.
-# XXX - Also breaks with insert preserving. ctrl-o ^ reverts, so f* is inserted
-# need a way to fix that up
 custom_vim_motions_with_character_commands = {
-    "last": "$F",  # find starting end of line
-    "first": "^f",  # find starting beginning of line
+# XXX - these don't work due to comboing had to be moved into commands in a
+# talon file
+#    "last": "$F",  # find starting end of line
+#    "first": "^f",  # find starting beginning of line
 }
 
 ctx.lists["self.vim_motions_with_character"] = {
@@ -775,6 +781,13 @@ def vim_select_motion(m) -> str:
     "Returns a string of some selection motion"
     return "".join(str(x) for x in list(m))
 
+#@ctx.action_class("main")
+#class main_actions:
+#    def insert(text):
+#        """override insert action to allow us to enter insert mode"""
+#        v = VimMode()
+#        v.set_insert_mode()
+#        scripting.core.MainActions.insert(text)
 
 # These are actions you can call from vim.talon via `user.method_name()` in
 # order to modify modes, run commands in specific modes, etc

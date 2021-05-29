@@ -6,7 +6,7 @@ tag: user.vim_fugitive
 
 (fugitive|git) add (current|this) file: user.vim_command_mode(":G add %\n")
 (fugitive|git) add everything: user.vim_command_mode(":G add -u\n")
-(fugitive|git) blame: user.vim_command_mode(":G blame\n")
+(fugitive|git) blame: user.vim_command_mode(":Git blame\n")
 (fugitive|git) browse: user.vim_command_mode(":G Browse\n")
 (fugitive|git) commit: user.vim_command_mode(":G commit\n")
 (fugitive|git) (delete|remove): user.vim_command_mode(":GDelete")
@@ -17,7 +17,7 @@ tag: user.vim_fugitive
 (fugitive|git) fetch: user.vim_command_mode(":G fetch ")
 (fugitive|git) force write: user.vim_command_mode(":Gwrite!")
 (fugitive|git) grep: user.vim_command_mode(":G grep ")
-(fugitive|git) log: user.vim_command_mode(":Glog\n")
+(fugitive|git) log: user.vim_command_mode(":Gclog\n")
 (fugitive|git) merge: user.vim_command_mode(":G fallmerge")
 (fugitive|git) merge tool: user.vim_command_mode(":G mergetool")
 (fugitive|git) move: user.vim_command_mode(":G Move ")

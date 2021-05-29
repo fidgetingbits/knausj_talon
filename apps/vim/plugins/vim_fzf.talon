@@ -1,6 +1,7 @@
 tag: user.vim_fzf
 -
 
+# XXX - these can switch to command mode
 # ripgrep through files under current directory
 rizzle: user.vim_normal_mode_exterm(":Rg\n")
 rizzle this: 
