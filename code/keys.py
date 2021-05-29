@@ -8,6 +8,7 @@ from talon import Context, Module, actions, app
 #   jury  - suddenly always matching with three or tree
 #   pit  - conflicts with page
 #   yank - conflicts with vim command
+#   sit - conflicting with split on conformer
 default_alphabet = "air bat cap drum each fin gust harp sit jail crunch look made near odd peck quench red sun trap urge vest whale plex yell zip".split(
     " "
 )
@@ -98,10 +99,13 @@ def any_alphanumeric_key(m) -> str:
 
 @mod.capture(
     rule="( <self.letter> | <self.number_key> | <self.symbol_key> "
-    "| <self.arrow_key> | <self.special_key> )"
+    "| <self.special_key> )"
 )
 def unmodified_key(m) -> str:
-    "A single key with no modifiers"
+    """A single key with no modifiers.
+
+    Excludes arrow keys and function keys
+    """
     return str(m)
 
 
@@ -110,7 +114,7 @@ def unmodified_key(m) -> str:
     "| <self.arrow_key> | <self.function_key> | <self.special_key> )"
 )
 def all_unmodified_key(m) -> str:
-    "A single key including F keys with no modifiers"
+    "A single key including F keys and arrow keys, with no modifiers"
     return str(m)
 
 
