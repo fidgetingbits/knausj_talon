@@ -116,6 +116,10 @@ def every_word(word_func):
 formatters_dict = {
     "ALL_CAPS": (SEP, every_word(lambda w: w.upper())),
     "ALL_LOWERCASE": (SEP, every_word(lambda w: w.lower())),
+    # XXX - finish me
+#    "BRIEF": (NOSEP,
+#        lambda i, word, _: word
+#    ),
     "CAPITALIZE_ALL_WORDS": (
         SEP,
         lambda i, word, _: word.capitalize()
@@ -123,11 +127,13 @@ formatters_dict = {
         else word,
     ),
     "CAPITALIZE_FIRST_WORD": (SEP, first_vs_rest(lambda w: w.capitalize())),
+    "COMMA_SEPARATED": words_with_joiner(", "),
     "DASH_SEPARATED": words_with_joiner("-"),
     "DOT_SEPARATED": words_with_joiner("."),
     "DOUBLE_COLON_SEPARATED": words_with_joiner("::"),
     "DOUBLE_QUOTED_STRING": (SEP, surround('"')),
     "DOUBLE_UNDERSCORE": (NOSEP, first_vs_rest(lambda w: "__%s__" % w)),
+    "EQUAL_SEPARATED": words_with_joiner("="),
     "FIRST_THREE": (NOSEP, lambda i, word, _: word[0:3]),
     "FIRST_FOUR": (NOSEP, lambda i, word, _: word[0:4]),
     "FIRST_FIVE": (NOSEP, lambda i, word, _: word[0:5]),
@@ -154,12 +160,15 @@ formatters_dict = {
 formatters_words = {
     "allcaps": formatters_dict["ALL_CAPS"],
     "alldown": formatters_dict["ALL_LOWERCASE"],
+#    "brief": formatters_dict["BRIEF"],
     "camel": formatters_dict["PRIVATE_CAMEL_CASE"],
+    "arguing": formatters_dict["COMMA_SEPARATED"],
     "dotted": formatters_dict["DOT_SEPARATED"],
     "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
-    "as path": formatters_dict["FOLDER_SEPARATED"],
+    "pathing": formatters_dict["FOLDER_SEPARATED"],
     "hammer": formatters_dict["PUBLIC_CAMEL_CASE"],
-    "kebab": formatters_dict["DASH_SEPARATED"],
+    "dashing": formatters_dict["DASH_SEPARATED"],
+    "equaling": formatters_dict["EQUAL_SEPARATED"],
     "long arg": formatters_dict["LONG_ARG"],
     "packed": formatters_dict["DOUBLE_COLON_SEPARATED"],
     "padded": formatters_dict["SPACE_SURROUNDED_STRING"],
@@ -168,8 +177,8 @@ formatters_words = {
     "slasher": formatters_dict["SLASH_SEPARATED"],
     "smash": formatters_dict["NO_SPACES"],
     "snake": formatters_dict["SNAKE_CASE"],
-    "speak": formatters_dict["NOOP"],
-    "string": formatters_dict["DOUBLE_QUOTED_STRING"],
+    #"speak": formatters_dict["NOOP"],
+    "quoted": formatters_dict["DOUBLE_QUOTED_STRING"],
     "ticks": formatters_dict["SINGLE_QUOTED_STRING"],
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
     "upper": formatters_dict["ALL_CAPS"],
@@ -277,7 +286,7 @@ class Actions:
         # TODO: Separate out camelcase & studleycase vars
 
         # Delete separately for compatibility with programs that don't overwrite
-        # selected text (e.g. Emacs)
+        # selected text (e.g. Emacs, Vim)
         edit.delete()
         text = actions.self.formatted_text(unformatted, formatters)
         actions.insert(text)
