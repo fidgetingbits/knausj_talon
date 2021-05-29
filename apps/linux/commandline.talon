@@ -36,6 +36,7 @@ file show: "cat "
 file edit: insert("edit ")
 file edit here: insert("edit .\n")
 file remove: "rm -I "
+file deed copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
 (file|folder) remove recurse: "rm -rIf "
 file diff: "diff "
 # find
@@ -54,9 +55,17 @@ file locate: "locate "
 
 file edit read me: insert("edit README.md\n")
 file edit make file: insert("edit Makefile\n")
+file [disk] usage all: "du -sh *\n"
+#file [disk] usage: "du -sh "
 
 watch latest: "vlc $(ls -Art | tail -n1)"
 
+echo param <user.text>: 
+    insert("echo ${")
+    snake = user.formatted_text(text, "snake")
+    upper = user.formatted_text(snake, "upper")
+    insert(upper)
+    insert("}")
 
 # directory and files
 pivot: "cd "
@@ -85,10 +94,8 @@ pivot (last|flip): "cd -\n"
 pivot latest: "cd $(ls -Art | tail -n1)\n"
 
 
-make (dur|dear|dir|directory): "mkdir -p "
-make (dur|dear|dir|directory) <user.text>: "mkdir {text}"
-remove (dur|dear|dir|directory): "rmdir "
-remove (dur|dear|dir|directory) <user.text>: "rmdir {text}"
+folder remove: "rmdir "
+folder [create|new]: "mkdir -p  "
 
 # tree
 file tree: "tree -f -L 2\n"
@@ -114,6 +121,8 @@ now less [that]:
 
 clear [screen|page]: "clear\n"
 
+# piping
+pipe tea: "| tee "
 
 # grepping
 
@@ -194,6 +203,11 @@ so do that:
 so do edit: "sudoedit "
 d message: "dmesg"
 disk usage: "df -h\n"
+disk list: "lsblk -l\n"
+disk file systems: "lsblk -f\n"
+disk mounted: "mount\n"
+disk mount: "mount "
+disk unmount: "umount "
 sis cuddle: "sysctl "
 sis cuddle set: "sysctl -w "
 
@@ -243,8 +257,11 @@ core dump dump: "coredumpctl dump\n"
 core dump debug: "coredumpctl debug\n"
 
 # ssh
-secure shell: "ssh "
-secure shell <user.text>: "ssh {text}\n"
+# XXX - make texts actually query a series of names from the %h config
+(secure shell|tunnel) [<user.text>]: 
+    insert("ssh ")
+    insert(text or "")
+
 secure shall key gen: "ssh-keygen -t ed25519\n"
 secure copy [<user.text>]:
     insert("scp -r ")
@@ -259,6 +276,7 @@ terminate session:
 # process management
 pee kill <user.text>: "pkill {text}"
 kill <number>: "kill -9 {number}"
+kill job <number>: "kill -9 %{number}"
 kill: "kill -9 "
 reboot system: "sudo reboot -h now"
 
@@ -269,8 +287,9 @@ list pee bus: "lspci\n"
 list yew bus: "lsusb\n"
 
 
-(redirect errors|errors to standard out): "2>&1 "
-ignore errors: "2>/dev/null"
+
+errors to [standard] out: "2>&1 "
+errors ignore: "2>/dev/null"
 
 ###
 # Wallpaper
