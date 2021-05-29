@@ -8,7 +8,7 @@ mode: command
 and code.language: json
 """
 # spoken name -> ultisnips snippet name
-ctx.lists["user.snippets"] = {
+ultisnips_snippets = {
     "array": "a",
     "bool": "b",
     "named array": "na",
@@ -18,3 +18,8 @@ ctx.lists["user.snippets"] = {
     "object": "o",
     "string": "s",
 }
+private_snippets = {
+    "dick string": "dstr",
+}
+ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
+

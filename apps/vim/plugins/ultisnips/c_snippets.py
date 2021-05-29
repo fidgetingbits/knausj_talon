@@ -29,6 +29,11 @@ private_snippets = {
     "failure": "printff",
     "exit success": "exits",
     "exit failure": "exitf",
+    "dock fun": "doxyb",
+    "dock var": "doxyv",
+    "dock in": "doxypi",
+    "dock out": "doxypo",
+    "dock in out": "doxypio",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
