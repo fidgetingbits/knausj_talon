@@ -27,3 +27,10 @@ chunk meta: "ptmeta "
 chunk config: "ptconfig "
 chunk set config: "ptconfig -v "
 heap info: "ptparam\n"
+
+
+p t chunk help: "ptchunk -h\n"
+p t list help: "ptlist -h\n"
+p t list: "ptlist "
+p t list tag trace: "ptlist -M 'tags, backtrace:3' "
+p t list save: "ptlist -M 'tags, backtrace:3' --json "
