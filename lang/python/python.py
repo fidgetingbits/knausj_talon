@@ -25,12 +25,37 @@ ctx.lists["user.code_functions"] = {
     "help": "help",
 }
 
+ctx.lists["user.code_libraries"] = {
+    "click": "click",
+    "docker": "docker",
+    "funk tools": "functools",
+    "get pass": "getpass",
+    "import lib": "importlib",
+    "jason": "json",
+    "os": "os",
+    "path lib": "pathlib",
+    "pea expect": "pexpect",
+    "pretty print": "pprint",
+    "random": "random",
+    "reg ex": "re",
+    "shell utils": "shutil",
+    "string": "string",
+    "system": "sys",
+    "tar file": "tarfile",
+    "time": "time",
+    "trace back": "trace",
+    "unit test": "unittest",
+    "warnings": "warnings",
+}
+
+
 """a set of fields used in python docstrings that will follow the
 reStructuredText format"""
 docstring_fields = {
     "class": ":class:",
     "function": ":func:",
     "parameter": ":param:",
+    "param": ":param:",
     "raise": ":raise:",
     "returns": ":return:",
     "type": ":type:",
@@ -146,15 +171,18 @@ ctx.lists["user.python_decorator"] = {
     for decorator in decorator_list
 }
 
+
 @mod.capture(rule="{self.python_type_list}")
 def python_type_list(m) -> str:
     "Returns a string"
     return m.python_type_list
 
+
 @mod.capture(rule="{self.python_docstring_fields}")
 def python_docstring_fields(m) -> str:
     "Returns a string"
     return m.python_docstring_fields
+
 
 @ctx.action_class("user")
 class user_actions:
@@ -190,6 +218,9 @@ class user_actions:
         actions.user.paste(result)
         actions.edit.left()
         actions.edit.left()
+
+    def code_insert_library(text: str, selection: str):
+        actions.user.paste(f"import {text}")
 
 
 @mod.action_class

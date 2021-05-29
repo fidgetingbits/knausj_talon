@@ -68,3 +68,11 @@ state end for: "endfor"
 state end while: "endwhile"
 state end function: "endfunction"
 state continue: "continue"
+
+
+# XXX - should be a generic
+# function calling
+funk <user.text>:
+    insert(user.formatted_text(text, "snake"))
+    insert("()")
+    edit.left()
