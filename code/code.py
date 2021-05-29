@@ -49,6 +49,7 @@ extension_lang_map = {
     ".js": "javascript",
     ".jsx": "javascript",
     ".json": "json",
+    ".json5": "json",
     ".lua": "lua",
     ".md": "markdown",
     ".pl": "perl",
