@@ -61,7 +61,7 @@ for n in range(1, 100):
         assert 0 < units, "we have already handled all ordinals divisible by ten"
         word = f"{tens_words[tens]} {ordinal_words[units]}"
 
-    if n <= 20:
+    if n <= 10:
         ordinal_small[word] = n
     ordinal_numbers[word] = n
 
