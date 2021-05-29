@@ -108,16 +108,19 @@ action(user.code_block_comment_suffix): "*/"
 ^static funky <user.text>$: user.code_private_static_function(text)
 
 
-state define: "#define "
-state undefine: "#undef "
-state if define: "#ifdef "
-
-state hash if: "#if "
-state hash error: "#error "
-state hash else if: "#elif "
-state hash end end: "#endif "
-state hash pragma: "#pragma "
+hash define: "#define "
+hash undefine: "#undef "
+hash if define: "#ifdef "
+hash if: "#if "
+hash error: "#error "
+hash else if: "#elif "
+hash end if: "#endif "
+hash pragma: "#pragma "
 state default: "default:\nbreak;"
+
+block:
+    insert("{\n\n}")
+    key(up)
 
 #control flow
 #best used with a push like command
@@ -160,3 +163,25 @@ include <user.code_libraries>:
 
 cycle data type: user.cycle_c_datatype()
 show data type: user.current_c_datatype()
+
+###
+# Documentation
+###
+# JavaDoc-style Doxygen
+# https://www.doxygen.nl/manual/docblocks.html
+# TODO - this might be something to generalize and have set up in settings
+dock fun:
+    user.paste("/**\n* \n*/")
+    key(up end)
+dock var:
+    user.insert_cursor("/**< [|].*/")
+dock in:
+    insert("@param[in] ")
+dock out:
+    insert("@param[out] ")
+dock in out:
+    insert("@param[in, out] ")
+dock return:
+    insert("@return")
+dock file:
+    insert("/** @file */")
