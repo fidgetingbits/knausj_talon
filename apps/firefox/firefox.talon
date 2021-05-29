@@ -27,3 +27,9 @@ outline that:
     key(home)
     insert("outline.com/")
     key(end enter)
+archive that: 
+    browser.focus_address()
+    key(home)
+    insert("https://web.archive.org/web/*/")
+    key(end enter)
+

@@ -16,10 +16,11 @@ half up:
     key("u")
 half down:
     key("d")
-left:
-    key("h")
-right:
-    key("l")
+# XXX - these conflict with tech edit boxes
+#left:
+#    key("h")
+#right:
+#    key("l")
 [(page|tab)] (refresh|reload):
     key("r")
 (address|Earl|link) copy:
