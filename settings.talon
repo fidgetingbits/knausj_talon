@@ -55,8 +55,13 @@ settings():
     # how long to wait between key presses
     insert_wait = 5
 
+    # where to save replayed recordings for talon debugging
+    user.saved_replay_recordings_directory = "~/talon/documents/conformer_problem_recordings/"
+
+
 # uncomment tag to enable mouse grid
 # tag(): user.mouse_grid_enabled
 
 tag(): user.i3wm
 tag(): user.noise_quick_actions
+tag(): user.record_replay
