@@ -2,6 +2,6 @@
 tag: user.vim_suda
 -
 
-[sudo|suda] read: user.vim_command_mode(":SudaRead ")
-[sudo|suda] write: user.vim_command_mode(":SudaWrite ")
-[sudo|suda] edit: user.vim_command_mode(":SudaEdit ")
+(sudo|suda) read: user.vim_command_mode(":SudaRead ")
+(sudo|suda) write: user.vim_command_mode(":SudaWrite ")
+(sudo|suda) edit: user.vim_command_mode(":SudaEdit ")
