@@ -40,4 +40,7 @@ blue tooth connect:
 blue tooth fix audio:
     user.system_command_nb("/usr/local/bin/a2dp-fix")
 
+flash my keyboard:
+    user.system_command_nb("/home/aa/scripts/flash_keyboard.sh")
+
 over: skip()
