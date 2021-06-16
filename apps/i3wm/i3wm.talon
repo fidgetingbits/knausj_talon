@@ -1,10 +1,6 @@
 os: linux
 tag: user.i3wm
 -
-settings():
-    user.i3_config_path = "~/.i3/config"
-    user.i3_mod_key = "super"
-
 
 ##
 # Workspaces
@@ -27,7 +23,7 @@ portal left: user.system_command("i3-msg workspace prev")
 (win|window) default: user.system_command("i3-msg layout toggle split")
 (win|window) tabbed: user.system_command("i3-msg layout tabbed")
 (win|window) flip: user.system_command("/home/aa/scripts/i3/i3-focus-last.py --switch")
-(win|window) [focus] <number_small>:
+(win|window) [focus] <digits>:
     user.system_command("/home/aa/scripts/i3/i3-nth_window_in_workspace.py $(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name') {number_small-1}")
 window focus parent: user.system_command("i3-msg focus parent")
 window focus child: user.system_command("i3-msg focus child")
@@ -36,6 +32,10 @@ window focus child: user.system_command("i3-msg focus child")
 [window] floating toggle: user.system_command("i3-msg floating toggle")
 [window] floating focus: user.system_command("i3-msg focus mode_toggle")
 window center: user.system_command("i3-msg move position center")
+window move left: user.system_command("i3-msg move left") 
+window move right: user.system_command("i3-msg move right") 
+window move up: user.system_command("i3-msg move up") 
+window move down: user.system_command("i3-msg move down") 
 window resize: user.system_command('i3-msg mode "resize"')
 (win|window) horizontal: user.system_command("i3-msg split h")
 (win|window) vertical: user.system_command("i3-msg split v")
@@ -59,6 +59,12 @@ shuffle left: user.system_command("i3-msg move left")
 shuffle right: user.system_command("i3-msg move right")
 shuffle up: user.system_command("i3-msg move up")
 shuffle down: user.system_command("i3-msg move down")
+
+# multi-monitor commands
+# NOTE: these are flipped on purpose, because I have to trick the talon monitor
+# orientation to ensure that eye tracking works on multiple monitors
+shuffle screen left: user.system_command("i3-msg move container to output right")
+shuffle screen right: user.system_command("i3-msg move container to output left")
 
 [window] make scratch: user.system_command("i3-msg move scratchpad")
 [(show|hide)] scratch: user.system_command("i3-msg scratchpad show")
