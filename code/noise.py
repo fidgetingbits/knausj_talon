@@ -43,7 +43,7 @@ class Actions:
     def pop_quick_action_run():
         """Runs the quick macro"""
         print(*pop_quick_action)
-        scripting.core.CoreActions.run_command(*pop_quick_action)
+        scripting.core.core.CoreActions.run_command(*pop_quick_action)
 
     def hiss(): 
         """hiss action overrideable by contexts"""
