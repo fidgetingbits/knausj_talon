@@ -31,6 +31,10 @@ open poly bar:
     user.vim_command_mode_exterm(":e ~/.config/polybar/config\n")
 open eye three:
     user.vim_command_mode_exterm(":e ~/.i3/config\n")
+open shell config:
+    user.vim_command_mode_exterm(":e ~/.zshrc\n")
+open tunnel config:
+    user.vim_command_mode_exterm(":e ~/.ssh/config\n")
 
 ###
 # Admin
@@ -105,4 +109,6 @@ convert string to stack:
 stellaris session:
     user.vim_command_mode_exterm(":source ~/.vim/sessions/stellaris.session")
 
+toggle debug log:
+    user.vim_command_mode(":call ToggleVerbose()\n")
 

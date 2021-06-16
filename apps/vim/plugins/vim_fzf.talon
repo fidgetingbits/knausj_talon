@@ -8,9 +8,7 @@ rizzle this:
     user.vim_normal_mode_exterm("yiw") 
     user.vim_normal_mode_exterm(":Rg\n")
     edit.paste()
-rizzle <user.text>:
-    user.vim_normal_mode_exterm(":Rg\n")
-    insert("{text}")
+
 
 fuzz buffer commits: user.vim_normal_mode_exterm(":BCommit\n")
 
@@ -21,10 +19,8 @@ lizzie: user.vim_normal_mode_exterm(":BLines\n")
 fuzz buffer tags: user.vim_normal_mode_exterm(":BTags\n")
 
 # Open buffers
-bizzle: user.vim_normal_mode_exterm(":Buffers\n")
-bizzle <user.text>:
-    user.vim_normal_mode_exterm(":Buffers\n")
-    insert("{text}")
+buzzle: user.vim_normal_mode_exterm(":Buffers\n")
+
 
 fuzz code search: user.vim_normal_mode_exterm(":Ag\n")
 fuzz colors: user.vim_normal_mode_exterm(":Colors\n")
@@ -34,9 +30,7 @@ fuzz commits: user.vim_normal_mode_exterm(":Commit\n")
 fuzz file types: user.vim_normal_mode_exterm(":Filetypes\n")
 
 # Files under current directory
-fizzle <user.text>:
-    user.vim_normal_mode_exterm(":Files\n")
-    insert("{text}")
+
 fizzle: user.vim_normal_mode_exterm(":Files\n")
 
 fuzz git files: user.vim_normal_mode_exterm(":GFiles\n")

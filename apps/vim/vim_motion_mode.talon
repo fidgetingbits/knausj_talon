@@ -402,6 +402,9 @@ quick [fix] next: user.vim_command_mode(":cn\n")
 quick [fix] (back|last|prev|previous): user.vim_command_mode(":cp\n")
 quick [fix] (show|hide): user.vim_command_mode(":cw\n")
 quick [fix] close: user.vim_command_mode(":ccl\n")
+quick [fix] files: 
+    user.vim_command_mode(':cexpr system("fd -g \'*.py\' .")')
+    key(left:3)
 # XXX - top?
 quick [fix] bottom: user.vim_command_mode(":cbo\n")
 quick [fix] do:
@@ -421,8 +424,10 @@ set auto write all: user.vim_command_mode(":set autowriteall\n")
 (arg|argument) do:
     user.vim_command_mode(":argdo | update")
     key(left:9)
+# XXX - using this `<command>` method doesn't seem to be working
 (arg|argument) files:
-    user.vim_command_mode(":arg ")
+    user.vim_command_mode(":arg `fd -g '\\*.py' .`")
+    key(left:4)
 (arg|argument) list show:
     user.vim_command_mode(":arg\n")
 (arg|argument) add:
@@ -631,3 +636,5 @@ first <user.unmodified_key>:
 last <user.unmodified_key>:
     user.vim_normal_mode_np("$F{unmodified_key}")
 
+flop:
+    user.vim_command_mode(":call popup_clear(1)")

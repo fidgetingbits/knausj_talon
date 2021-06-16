@@ -12,13 +12,18 @@ import time
 import enum
 
 from talon import Context, Module, actions, settings, ui, scripting
-
+import logging
 try:
     import pynvim
 
     has_pynvim = True
 except Exception:
     has_pynvim = False
+
+logger = logging.getLogger('talon.vim')
+FORMAT = "!!![%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+logging.basicConfig(format=FORMAT)
+logger.setLevel(logging.DEBUG)
 
 mod = Module()
 ctx = Context()
@@ -224,6 +229,7 @@ ctx.lists["self.vim_counted_actions_args"] = {
 commands_with_motion = {
     # no motions
     "join": "J",
+    "merge": "gJ", # won't produce spaces between joined words
     # "filter": "=",  # XXX - not sure about how to use this
     "paste": "p",  # XXX this really have motion
     "undo": "u",  # XXX this really have motion
@@ -1223,14 +1229,16 @@ class VimMode:
         check_count = 0
         max_check_count = 20
         if self.nvrpc.init_ok:
-            while wanted != self.nvrpc.get_active_mode()["mode"][0]:
-                # print("%s vs %s" % (wanted, self.nvrpc.get_active_mode()["mode"]))
+            while wanted != self.nvrpc.get_active_mode()["mode"]:
+                logger.debug("%s vs %s" % (wanted, self.nvrpc.get_active_mode()["mode"]))
+                print(f"!!! wanted:{type(wanted)}, mode:{type(self.nvrpc.get_active_mode()['mode'])}")
                 time.sleep(0.005)
                 # try to force redraw to prevent weird infinite loops
                 self.nvrpc.nvim.command('redraw')
                 check_count += 1
                 if check_count > max_check_count:
                     # prevent occasional infinite loops stalling talon
+                    logger.debug("early break to avoid infinite loop")
                     return False
             return True
         else:
