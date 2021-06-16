@@ -197,7 +197,7 @@ symbol_key_words = {
     "equals": "=",
     "plus": "+",
     "question": "?",
-    "tilde": "~",
+    "squiggle": "~",
     "bang": "!",
     "dollar": "$",
     "score": "_",

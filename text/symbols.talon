@@ -91,7 +91,7 @@ percent that:
 quote that:
     text = edit.selected_text()
     user.paste('"{text}"')
-glob line:
+(globby|glob line):
     insert("s///g")
     key(left:3)
 
