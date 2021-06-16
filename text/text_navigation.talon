@@ -1,7 +1,10 @@
 # XXX - come up with a better way to disable this situationally in certain
 # apps
 not app: vim
-- 
+# XXX - this is not ideal because we want it to work while we're in the
+# terminal
+not win.title:/VIM/
+-
 
 ## (2021-03-09) This syntax is experimental and may change. See below for an
 # explanation.
