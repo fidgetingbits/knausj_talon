@@ -29,8 +29,8 @@ class Actions:
     def pop_quick_action_set():
         """Sets the quick macro"""
         global pop_quick_action
-        if len(scripting.core.command_history) > 1:
-            pop_quick_action = scripting.core.command_history[-1]
+        if len(scripting.core.core.command_history) > 1:
+            pop_quick_action = scripting.core.core.command_history[-1]
             app.notify(subtitle=f"pop quick action set\n{pop_quick_action}")
 
     def pop_quick_action_set_last():
@@ -60,8 +60,8 @@ class Actions:
     def hiss_quick_action_set():
         """Sets the quick macro"""
         global hiss_quick_action
-        if len(scripting.core.command_history) > 1:
-            hiss_quick_action = scripting.core.command_history[-1]
+        if len(scripting.core.core.command_history) > 1:
+            hiss_quick_action = scripting.core.core.command_history[-1]
             app.notify(subtitle=f"hiss quick action set\n{pop_quick_action}")
 
     def hiss_quick_action_set_last():
@@ -74,7 +74,7 @@ class Actions:
     def hiss_quick_action_run():
         """Runs the quick macro"""
         print(*hiss_quick_action)
-        scripting.core.CoreActions.run_command(*hiss_quick_action)
+        scripting.core.core.CoreActions.run_command(*hiss_quick_action)
 
 
 ui.register("app_deactivate", lambda app: actions.user.pop_quick_action_clear())
