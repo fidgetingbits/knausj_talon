@@ -1,3 +1,14 @@
+"""The point of this file is to help managed talon recordings by being able to
+speak a command to automatically save the last recording in a preconfigured
+directory, with the assumption that the recording had some sort of error in it
+that you want to document and then provide to @aegis for analysis. It allows
+you to save the most recent recording, as well as replay them so that you can
+actually see whether or not what you thought was an error sounded like an error
+to the recording. It also allows you to remove the last saved recording in the
+event that you feel that it wasn't actually an error. because the number of
+recordings that can happen change fairly quickly it also provides a gui
+selector that allows you to choose from a list of the most recent recordings
+and have one of those specifically save to the preconfigured directory."""
 import os
 import pathlib
 import shutil
@@ -21,6 +32,12 @@ mod.setting(
     default=None,
     desc="Location that you can use to store saved recordings",
 )
+mod.setting(
+    "replay_recordings_list_count",
+    type=int,
+    default=30,
+    desc="The number of recordings to show in the replay recordings gui",
+)
 
 ctx.matches = r"""
 tag: user.record_replay
@@ -33,24 +50,25 @@ def check_settings(f):
         if settings.get("speech.record_all") != 1:
             app.notify("Recording appears to be disabled")
             return None
-
-        if settings.get("user.saved_replay_recordings_directory") is None:
-            return None
-        args[0].saved_recording_directory = pathlib.Path(
-            settings.get("user.saved_replay_recordings_directory")
-        ).expanduser()
-
+        if args[0].saved_recording_directory is None:
+            if settings.get("user.saved_replay_recordings_directory") is None:
+                print("!!! check_settings wrapper")
+                app.notify("No replay recording folder configured")
+                return None
+            args[0].saved_recording_directory = pathlib.Path(
+                settings.get("user.saved_replay_recordings_directory")
+            ).expanduser()
         return f(*args)
     return wrapper
 
 class _RecordingReplayer(object):
     """Manages recent recordings and make them available for replay"""
 
-    def __init__(self, count=30):
+    def __init__(self):
         """Specify the number of default recording to list in the picker"""
         self.gui_open = False
         self.recordings_list = []
-        self.count = count
+        self.count = 0
         self.recordings = pathlib.Path(TALON_HOME, "recordings/")
         self.last_saved_recording = None
         self.saved_recording_directory = None
@@ -62,6 +80,8 @@ class _RecordingReplayer(object):
 
         """
 
+        if self.count == 0:
+            self.count = settings.get("user.replay_recordings_list_count")
         list_of_files = sorted(self.recordings.iterdir(), key=os.path.getmtime)
 
         file_count = len(list_of_files)
@@ -89,20 +109,19 @@ class _RecordingReplayer(object):
         if self.last_saved_recording is not None:
             self.last_saved_recording.unlink(missing_ok=True)
             self.last_saved_recording = None
+            app.notify(f"{self.last_saved_recording} removed")
 
     @check_settings
     def play_file(self, recording: pathlib.Path):
         """Play the recording file passed in."""
         actions.speech.disable()
-        # TODO - make this a python command
+        # TODO -  start using cubeb
         subprocess.run(["mplayer", recording])
         actions.speech.enable()
 
     @check_settings
     def save_recording(self, index):
         """Save the recording into the defined folder"""
-        # XXX - this should use a cached list from the gui, because
-        # sometimes it seems out of sync
         if index == 0:
             self.recordings_list = self.last_recordings()
         file_name = pathlib.Path(self.recordings_list[index - 1])
@@ -117,8 +136,6 @@ class _RecordingReplayer(object):
 
 
 main_screen = ui.main_screen()
-
-
 rr = _RecordingReplayer()
 
 def close_replay_picker():
@@ -138,7 +155,8 @@ def gui(gui: imgui.GUI):
     gui.line()
     index = 1
     global rr
-    # we do this because this code is called in a refresh loop
+    # we do this because this code is called in a refresh loop, we don't want
+    # the recordings list to change if the user issues another command
     if not rr.gui_open:
         rr.gui_open = True
         rr.recordings_list = rr.last_recordings()
@@ -180,7 +198,7 @@ class Actions:
             return
         # XXX - whether or not to pace should be part of a setting
         clip.set_text(file_name)
-        actions.edit.paste()
+        actions.user.insert_cursor_paste('"[|]":', "")
 
     def replay_save_last():
         """Save the last recording to a preconfigured directory"""

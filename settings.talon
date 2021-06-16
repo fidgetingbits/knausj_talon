@@ -24,7 +24,9 @@ settings():
     # where to save screen shots
     user.screenshot_folder = "/home/aa/images/screenshots/"
     # what command to use for selection based screenshots
-    user.screenshot_selection_command = "scrot -s"
+    user.screenshot_selection_command = "scrot =s"
+    # where to save replayed recordings for talon debugging
+    user.saved_replay_recordings_directory = "~/talon/documents/conformer_problem_recordings/"
     # the default is now 300ms
     speech.timeout = 0.175
     speech.record_all = 1
@@ -32,7 +34,7 @@ settings():
     speech.normalize = 1
 
     # Adjust how sensitive picking up commands are.
-    # XXX - what is the default?
+    # XXX what is the default?
     speech.threshold = 0.1
 
     #mouse grid and friends put the number one on the bottom left (vs on the top left)
@@ -43,20 +45,18 @@ settings():
     # "command history more" to display all of them, "command history less" to restore
     user.command_history_size = 20
 
-    # Uncomment the below to enable context-sensitive dictation. This determines
-    # how to format (capitalize, space) dictation-mode speech by selecting &
+    # Uncomment the below to enable context=sensitive dictation. This determines
+    # how to format (capitalize, space) dictation=mode speech by selecting &
     # copying surrounding text before inserting. This can be slow and may not
     # work in some applications. You may wish to enable this on a
-    # per-application basis.
+    # per=application basis.
     #user.context_sensitive_dictation = 1
 
-    # XXX - ?
+    # XXX = ?
     key_wait = 1
     # how long to wait between key presses
     insert_wait = 5
 
-    # where to save replayed recordings for talon debugging
-    user.saved_replay_recordings_directory = "~/talon/documents/conformer_problem_recordings/"
 
 
 # uncomment tag to enable mouse grid
@@ -65,3 +65,6 @@ settings():
 tag(): user.i3wm
 tag(): user.noise_quick_actions
 tag(): user.record_replay
+
+
+
