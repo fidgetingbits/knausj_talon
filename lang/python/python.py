@@ -43,9 +43,14 @@ ctx.lists["user.code_libraries"] = {
     "system": "sys",
     "tar file": "tarfile",
     "time": "time",
-    "trace back": "trace",
+    "trace back": "traceback",
     "unit test": "unittest",
     "warnings": "warnings",
+    "a sink": "asyncio",
+    "threading": "threading",
+    "subprocess": "subprocess",
+    "multiprocessing": "multiprocessing",
+    "logging": "logging",
 }
 
 
