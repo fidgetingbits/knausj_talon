@@ -7,3 +7,5 @@ debug app:
 debug active context:
     user.debug_active_context()
 ^incorrect$: skip()
+debug lost context:
+    user.debug_lost_context()
