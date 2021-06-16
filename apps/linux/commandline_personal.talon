@@ -61,6 +61,9 @@ run debug: "./debug.sh\n"
 run update: "update.sh\n"
 run project: insert("run_active_project\n")
 run talon shell: insert("~/.talon/bin/repl\n")
+run event log: insert('echo "events.tail()"|~/.talon/bin/repl\n')
+run noisy log: insert('echo "events.tail(noisy=True)"|~/.talon/bin/repl\n')
+run filter log: insert('echo "events.tail(search="", noisy=True)"|~/.talon/bin/repl\n')
 
 # markdown to docx
 generate dock: user.insert_cursor("pandoc [|].md --self-contained --highlight-style=tango -o .docx")

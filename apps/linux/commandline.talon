@@ -95,7 +95,7 @@ pivot latest: "cd $(ls -Art | tail -n1)\n"
 
 
 folder remove: "rmdir "
-folder [create|new]: "mkdir -p  "
+folder (create|new): "mkdir -p  "
 
 # tree
 file tree: "tree -f -L 2\n"
