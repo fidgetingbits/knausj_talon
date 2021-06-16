@@ -1,5 +1,7 @@
 from talon import Context, Module, actions, settings, ui
 
+import re
+
 ctx = Context()
 ctx.matches = r"""
 tag: user.vim_terminal
@@ -57,6 +59,8 @@ def populate_shell_tags(shell_command):
     :returns: TODO
 
     """
+    # XXX - this should have eventually become a list of possible tags to
+    # set?
     shell_tags = {
         "zsh": "terminal",
         "bash": "terminal",
@@ -73,7 +77,10 @@ def populate_shell_tags(shell_command):
         #"term://": "user.readline",
         "root@": "terminal", # hacky match for docker containers
     }
-    print(shell_command)
+    regex_shell_tags = {
+            r"^\w*@\w*": "terminal",
+            r"^\w*@\w*:.*[$#]": "terminal", # this is redundant with above, but ideally I would rather have something like this
+            }
     if shell_command in shell_tags:
         ctx.tags = [shell_tags[shell_command]]
     else:
@@ -83,6 +90,12 @@ def populate_shell_tags(shell_command):
                 ctx.tags = [fuzzy_shell_tags[tag]]
                 found_fuzzy = True
                 break
+        for expression in regex_shell_tags:
+            m = re.match(expression, shell_command)
+            if m is not None:
+                ctx.tags = [regex_shell_tags[expression]]
+
+
         #ctx.tags = ["terminal"]
 #        if not found_fuzzy:
 #            print(f"WARNING: missing tag for shell cmd: {shell_command}")
