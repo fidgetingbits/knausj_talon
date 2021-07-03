@@ -1,7 +1,7 @@
 tag: user.vim_eunuch
 -
 
-file delete: user.vim_command_mode(":Delete ")
+file (remove|delete): user.vim_command_mode(":Delete ")
 file un link: user.vim_command_mode(":Unlink ")
 file move: user.vim_command_mode(":Move ")
 file rename: user.vim_command_mode(":Rename ")
