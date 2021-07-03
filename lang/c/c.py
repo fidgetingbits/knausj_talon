@@ -18,10 +18,10 @@ mod.list("c_stdint_types", desc="A list of stdint.h C datatypes")
 
 ctx = Context()
 ctx.matches = r"""
-mode: command
-and code.language: c
-
 mode: user.c
+
+mode: user.auto_lang
+and code.language: c
 """
 
 basic_ctx = Context()

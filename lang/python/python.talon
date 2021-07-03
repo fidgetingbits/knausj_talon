@@ -1,9 +1,9 @@
 mode: user.python
 
-mode: command
+mode: user.auto_lang
 and code.language: python
 
-mode: command
+mode: user.auto_lang
 and tag: user.python_repl
 -
 tag(): user.code_operators

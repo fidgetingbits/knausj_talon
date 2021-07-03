@@ -76,17 +76,16 @@ extension_lang_map = {
 # This list can be indirectly updated by othher modules when they know at some
 # language should be implicitly enabled for a specific context, for instance
 # detecting the application repl is running in a terminal. Note that this is
-# different than the forced language mode, which sets a global mode across all
-# talent contexts.
+# different than the auto_lang mode, which sets a global mode across all
+# talon contexts.
+# XXX - we might want to change this to try to be closer to the new auto_lang
+# changes
 forced_context_language = None
 
 
 # Files that don't have specific extensions bit that are known to be associated
 # with specific languages. Ex: CMakeLists.txt is cmake
 special_file_map = {"CMakeLists.txt": "cmake", "Dockerfile": "docker"}
-
-# flag indicates whether or not the title tracking is enabled
-forced_language_mode = False
 
 @mod.capture(rule="{user.code_functions}")
 def code_functions(m) -> str:
@@ -109,18 +108,17 @@ def code_libraries(m) -> str:
 @ctx.action_class("code")
 class code_actions:
     def language():
-        if not forced_language_mode:
-            if forced_context_language is not None:
-                return forced_context_language
-            file_extension = actions.win.file_ext()
-            file_name = actions.win.filename()
+        if forced_context_language is not None:
+            return forced_context_language
+        file_extension = actions.win.file_ext()
+        file_name = actions.win.filename()
 
-            # Favor full matches
-            if file_name in special_file_map:
-                return special_file_map[file_name]
+        # Favor full matches
+        if file_name in special_file_map:
+            return special_file_map[file_name]
 
-            if file_extension and file_extension in extension_lang_map:
-                return extension_lang_map[file_extension]
+        if file_extension and file_extension in extension_lang_map:
+            return extension_lang_map[file_extension]
 
 
 # create a mode for each defined language
@@ -149,15 +147,14 @@ class Actions:
 
     def code_set_language_mode(language: str):
         """Sets the active language mode, and disables extension matching"""
-        global forced_language_mode
+        actions.user.code_clear_language_mode()
+        actions.mode.disable("user.auto_lang")
+        actions.mode.enable("user.{}".format(language))
         app.notify(subtitle="Enabled {} mode".format(language))
-        forced_language_mode = True
 
     def code_clear_language_mode():
         """Clears the active language mode, and re-enables code.language: extension matching"""
-        global forced_language_mode
-        forced_language_mode = False
-
+        actions.mode.enable("user.auto_lang")
         for _, lang in extension_lang_map.items():
             actions.mode.disable("user.{}".format(lang))
         app.notify(subtitle="Cleared language modes")
