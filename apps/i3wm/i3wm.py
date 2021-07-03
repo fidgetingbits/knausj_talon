@@ -44,6 +44,11 @@ class Actions:
         key = settings.get("user.i3_mod_key")
         actions.key(f"{key}-enter")
 
+    def i3wm_testing_shell():
+        """Launch a shell"""
+        key = settings.get("user.i3_mod_key")
+        actions.key(f"{key}-shift-enter")
+
     def i3wm_lock():
         """Trigger the lock screen"""
         key = settings.get("user.i3_mod_key")

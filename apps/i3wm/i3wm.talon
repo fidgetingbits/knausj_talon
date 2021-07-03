@@ -81,6 +81,7 @@ launch <user.text>:
 screen lock: user.i3wm_launch()
 
 term me: user.i3wm_shell()
+new test term: user.i3wm_testing_shell()
 
 new scratch (shell|window):
     user.i3wm_shell()
