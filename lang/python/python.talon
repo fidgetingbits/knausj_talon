@@ -152,6 +152,9 @@ raw string:
     insert('r""')
     edit.left()
 
+^init <user.text>$: 
+    var = user.formatted_text(text, "snake")
+    insert("self.{var} = {var}")
 
 ^funky <user.text>$: user.code_default_function(text)
 #^pro funky <user.text>$: user.code_protected_function(text)
@@ -185,6 +188,10 @@ dock type <user.python_type_list>:
 dock returns type <user.python_type_list>:
     user.insert_cursor(":rtype [|]: {python_type_list}")
 
+# decorators
+deck static [method]: insert("@staticmethod")
+deck class [method]: insert("@classmethod")
+
 toggle imports: user.code_toggle_libraries()
 import <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
@@ -192,3 +199,6 @@ import <user.code_libraries>:
 
 # XXX - it would be good to have a set of common overrides?
 funk path: "pathlib.Path()"
+funk bug: 
+    insert('print(f"!!! ")')
+    key(left:2)
