@@ -24,6 +24,10 @@ ultisnips_snippets = {
 private_snippets = {
     "if node exists": "ifnodeexists",
     "if not node exists": "ifnotnodeexists",
+    "if file exists": "iffileexists",
+    "if not file exists": "ifnotfileexists",
+    "if folder exists": "iffolderexists",
+    "if not folder exists": "ifnotfolderexists",
 }
 
 ctx.lists["user.snippets"] = {**ultisnips_snippets, **private_snippets}
