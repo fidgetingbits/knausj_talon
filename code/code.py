@@ -88,7 +88,6 @@ special_file_map = {"CMakeLists.txt": "cmake", "Dockerfile": "docker"}
 # flag indicates whether or not the title tracking is enabled
 forced_language_mode = False
 
-
 @mod.capture(rule="{user.code_functions}")
 def code_functions(m) -> str:
     """Returns a function name"""
@@ -130,6 +129,11 @@ for d in (extension_lang_map, special_file_map):
         mod.mode(lang)
         mod.tag(lang)
 
+# Create a mode for the automated language detection. This is active when no lang is forced.
+mod.mode("auto_lang")
+
+# Auto lang is enabled by default
+app.register("ready", lambda: actions.user.code_clear_language_mode())
 
 @mod.action_class
 class Actions:
@@ -146,8 +150,6 @@ class Actions:
     def code_set_language_mode(language: str):
         """Sets the active language mode, and disables extension matching"""
         global forced_language_mode
-        actions.user.code_clear_language_mode()
-        actions.mode.enable("user.{}".format(language))
         app.notify(subtitle="Enabled {} mode".format(language))
         forced_language_mode = True
 
@@ -156,7 +158,7 @@ class Actions:
         global forced_language_mode
         forced_language_mode = False
 
-        for __, lang in extension_lang_map.items():
+        for _, lang in extension_lang_map.items():
             actions.mode.disable("user.{}".format(lang))
         app.notify(subtitle="Cleared language modes")
 

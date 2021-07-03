@@ -19,6 +19,8 @@ git cherry pick continue: "git cherry-pick --continue "
 git cherry pick abort: "git cherry-pick --abort "
 git cherry pick skip: "git cherry-pick --skip "
 git clone: "git clone "
+# Leave \n out for confirmation since the operation is destructive
+git clean everything: "git clean -dfx"
 # XXX - should use text or
 git commit message <user.text>: "git commit -m '{text}'"
 git commit message: "git commit -m '{text}'"

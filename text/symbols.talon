@@ -75,7 +75,6 @@ escaped (round):
     insert('""')
     edit.left()
 
-# XXX - add support for additional text navigation options?
 angle that:
     text = edit.selected_text()
     user.paste("<{text}>")
@@ -95,5 +94,6 @@ quote that:
     insert("s///g")
     key(left:3)
 
-    
-
+(grave | back tick) that:
+    text = edit.selected_text()
+    user.paste('`{text}`')

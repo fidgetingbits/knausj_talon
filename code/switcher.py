@@ -269,11 +269,17 @@ class Actions:
             last_focused_app.focus()
 
     def switcher_focus(name: str):
+<<<<<<< HEAD
         """Focus a new application by  name"""
         global last_focused_app
         last_focused_app = ui.active_app()
         cur_app = actions.user.get_running_app(name)
         cur_app.focus()
+=======
+        """Focus a new application by name"""
+        app = actions.user.get_running_app(name)
+        app.focus()
+>>>>>>> upstream/master
 
         # Hacky solution to do this reliably on Mac.
         if talon.app.platform == "mac":

@@ -20,6 +20,8 @@ ctx = Context()
 ctx.matches = r"""
 mode: command
 and code.language: c
+
+mode: user.c
 """
 
 basic_ctx = Context()

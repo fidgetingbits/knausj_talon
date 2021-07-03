@@ -10,4 +10,3 @@ go tabby <number>: user.tab_jump(number)
 go tabby final: user.tab_final()
 go tabby first: user.tab_first()
 tabby search: user.tab_search()
-
