@@ -6,9 +6,9 @@ mode: command
 and tag: terminal
 -
 file list: "ls "
-file list here: "ls\n"
+file (list here|lisa): "ls -l\n"
 file list long: "ls -al "
-file list long here: "ls -al\n"
+file (list long here|lily): "ls -al\n"
 file list latest: "ls -Art | tail -n1\n"
 file list folders: "ls -d */\n"
 
@@ -26,18 +26,24 @@ file latest: "$(ls -Art | tail -n1)"
 file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
+file broken links:  
+    insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{}
+    \\; -print")
 file move: "mv "
 file open: "vim "
 file touch: "touch "
 file copy: "cp "
+file deep copy: "cp -R "
 file type: "file "
 file show <user.text>: "cat {text}"
 file show: "cat "
 file edit: insert("edit ")
 file edit here: insert("edit .\n")
 file remove: "rm -I "
+file real remove: "/bin/rm -I "
 file deed copy: user.insert_cursor("dd bs=4M if=[|] of=/dev/sdX conv=fsync oflag=direct status=progress")
-(file|folder) remove recurse: "rm -rIf "
+(file|folder) deep remove: "rm -rIf "
+(file|folder) real deep remove: "/bin/rm -rIf "
 file diff: "diff "
 # find
 file find: "find . -name "
@@ -58,7 +64,10 @@ file edit make file: insert("edit Makefile\n")
 file [disk] usage all: "du -sh *\n"
 #file [disk] usage: "du -sh "
 
-watch latest: "vlc $(ls -Art | tail -n1)"
+trash list: "trash-list\n"
+trash restore: "trash-restore "
+trash empty: "trash-empty "
+file watch latest: "vlc $(ls -Art | tail -n1)"
 
 echo param <user.text>: 
     insert("echo ${")
@@ -145,12 +154,17 @@ now grep:
 net [work] I P: "ip addr\n"
 net [work] (route|routes): "ip route\n"
 net stat: "netstat -ant\n"
+net trace: "traceroute "
+net ping: "ping "
 net cat: "nc -vv "
+net connect <user.domains>: "nc -vv {domains} "
 net cat listener: "nc -v -l -p "
 net my I P: "dig +short myip.opendns.com @resolver1.opendns.com\n"
+net port <user.ports>: "{ports}"
 show hosts file: "cat /etc/hosts\n"
 edit hosts file: "sudoedit /etc/hosts\n"
 tcp dump: "tcpdump "
+remote desktop: "xfreerdp /timeout:90000 /size:1280x800 /v: /u: /p:"
 
 generate see tags: "ctags --recurse --exclude=.git --exclude=.pc *"
 generate see scope database:
@@ -214,8 +228,17 @@ sis cuddle set: "sysctl -w "
 # extraction
 tar ball create: "tar -cvJf"
 tar ball [extract]: "tar -xvaf "
+file extract: "tar -xvaf "
+file unzip: "unzip "
+file seven extract: "7z e "
 tar ball list: "tar -tf "
 (un zip|extract zip): "unzip "
+
+# kernel modules
+module list: "lsmod\n"
+module search: "lsmod |rg -i"
+module probe: "modprobe "
+module remove: "rmmod "
 
 run <word>: "{word} "
 run curl: "curl "
@@ -334,3 +357,4 @@ screen resolution: "xdpyinfo | awk '/dimensions/{{print $2}}'\n"
 ###
 arch source check out: "asp checkout "
 arch source export: "asp export "
+
