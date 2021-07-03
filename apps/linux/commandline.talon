@@ -27,8 +27,7 @@ file link: "ln -s "
 file link force: "ln -sf "
 file hard link: "ln "
 file broken links:  
-    insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{}
-    \\; -print")
+    insert("find . -type l -exec sh -c 'file -b \"$1\" | grep -q ^broken' sh /{} \\; -print")
 file move: "mv "
 file open: "vim "
 file touch: "touch "
