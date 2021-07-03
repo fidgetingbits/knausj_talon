@@ -8,20 +8,16 @@ mod.list("folder_paths_public", desc="Common paths")
 mod.list("folder_paths_private", desc="Common private paths")
 ctx = Context()
 
+arch_linux_paths = { "packman hooks": "/etc/pacman.d/hooks/",}
 # paths that will work with pivot command
 linux_folder_paths = {
     "user services": "~/.config/systemd/user/",
     "services": "/etc/systemd/system/",
     "vim sessions": "~/.vim/sessions/",
-    "vim{plugins": "~/.vim/plugged/",
+    "vim plugins": "~/.vim/plugged/",
     "temp": "/tmp/",
     "config": "/etc/",
     "it see": "/etc/",
-    "crypt tab": "/etc/crypttab",
-    "f stab": "/etc/fstab",
-    "grub": "/etc/default/grub",
-    "make init config": "/etc/mkinitcpio.conf",
-    "boot config": "/boot/grub/grub.cfg",
     "user": "/usr/",
     "user bin": "/usr/bin/",
     "user lib": "/usr/lib/",
@@ -33,7 +29,6 @@ linux_folder_paths = {
     "shell functions": "~/.ohmyzsh/custom/functions/",
     "dot files": "~/dotfiles/",
     "custom snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
-    "journal config": "/etc/systemd/journald.conf", 
     "back": "../",
 }
 
@@ -45,7 +40,13 @@ linux_file_paths = {
     "null": "/dev/null",
     "zero": "/dev/zero",
     "vim": "~/.vim/",
-    "grub config": "/etc/default/grub"
+    "grub config": "/etc/default/grub",
+    "crypt tab": "/etc/crypttab",
+    "f stab": "/etc/fstab",
+    "make init config": "/etc/mkinitcpio.conf",
+    "boot config": "/boot/grub/grub.cfg",
+    "journal config": "/etc/systemd/journald.conf", 
+    "tunnel config": "~/.ssh/config", 
 }
 
 # this is used for specific commands like pivot
