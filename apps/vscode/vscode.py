@@ -1,16 +1,40 @@
 from talon import Context, actions, ui, Module, app, clip
-from typing import List, Union
 
 is_mac = app.platform == "mac"
 
 ctx = Context()
+mac_ctx = Context()
 mod = Module()
-mod.apps.vscode = "app.name: Code.exe"
-mod.apps.vscode = "app.name: Visual Studio Code"
-mod.apps.vscode = "app.name: Code"
-mod.apps.vscode = "app.name: Code - OSS"
+mod.apps.vscode = """
+os: mac
+and app.bundle: com.microsoft.VSCode
+"""
+mod.apps.vscode = """
+os: linux
+and app.name: Code
+os: linux
+and app.name: code-oss
+os: linux
+and app.name: VSCodium
+os: linux
+and app.name: Codium
+"""
+mod.apps.vscode = """
+os: windows
+and app.name: Visual Studio Code
+os: windows
+and app.exe: Code.exe
+os: windows
+and app.name: VSCodium
+os: windows
+and app.exe: VSCodium.exe
+"""
 
 ctx.matches = r"""
+app: vscode
+"""
+mac_ctx.matches = r"""
+os: mac
 app: vscode
 """
 
@@ -33,19 +57,16 @@ class win_actions:
 
         return ""
 
-    def file_ext():
-        return actions.win.filename().split(".")[-1]
-
 
 @ctx.action_class("edit")
 class edit_actions:
-    def find(text: str):
+    def find(text=None):
         if is_mac:
             actions.key("cmd-f")
         else:
             actions.key("ctrl-f")
-
-        actions.insert(text)
+        if text is not None:
+            actions.insert(text)
 
     def line_swap_up():
         actions.key("alt-up")
@@ -60,48 +81,42 @@ class edit_actions:
         actions.user.vscode("workbench.action.gotoLine")
         actions.insert(str(n))
         actions.key("enter")
+        actions.edit.line_start()
 
 
 @mod.action_class
 class Actions:
-    def vscode(command: str):
-        """Execute command via command palette. Preserves the clipboard."""
-        # Clip is noticeably faster than insert
-        if not is_mac:
-            actions.key("ctrl-shift-p")
-        else:
-            actions.key("cmd-shift-p")
+    def vscode_terminal(number: int):
+        """Activate a terminal by number"""
+        actions.user.vscode(f"workbench.action.terminal.focusAtIndex{number}")
 
-        actions.user.paste(f"{command}")
-        actions.key("enter")
+    def command_palette():
+        """Show command palette"""
+        actions.key("ctrl-shift-p")
 
-    def vscode_ignore_clipboard(command: str):
-        """Execute command via command palette. Does NOT preserve the clipboard for commands like copyFilePath"""
-        clip.set_text(f"{command}")
-        if not is_mac:
-            actions.key("ctrl-shift-p")
-        else:
-            actions.key("cmd-shift-p")
-        actions.edit.paste()
-        actions.key("enter")
+
+@mac_ctx.action_class("user")
+class MacUserActions:
+    def command_palette():
+        actions.key("cmd-shift-p")
 
 
 @ctx.action_class("user")
 class user_actions:
     # snippet.py support beginHelp close
     def snippet_search(text: str):
-        actions.user.vscode("Insert Snippet")
+        actions.user.vscode("editor.action.insertSnippet")
         actions.insert(text)
 
     def snippet_insert(text: str):
         """Inserts a snippet"""
-        actions.user.vscode("Insert Snippet")
+        actions.user.vscode("editor.action.insertSnippet")
         actions.insert(text)
         actions.key("enter")
 
     def snippet_create():
         """Triggers snippet creation"""
-        actions.user.vscode("Preferences: Configure User Snippets")
+        actions.user.vscode("workbench.action.openSnippets")
 
     # snippet.py support end
 
@@ -142,10 +157,10 @@ class user_actions:
             actions.insert(text)
 
     def find_next():
-        actions.key("enter")
+        actions.user.vscode("editor.action.nextMatchFindAction")
 
     def find_previous():
-        actions.key("shift-enter")
+        actions.user.vscode("editor.action.previousMatchFindAction")
 
     def find_everywhere(text: str):
         """Triggers find across project"""
@@ -221,6 +236,3 @@ class user_actions:
         actions.edit.find(text)
         actions.sleep("100ms")
         actions.key("esc")
-
-    # find_and_replace.py support end
-

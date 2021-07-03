@@ -144,40 +144,67 @@ mod.list("stdint_signed", desc="Common stdint C datatype signed modifiers")
 def c_cast(m) -> str:
     "Returns a string"
 
-
 @mod.capture
 def c_stdint_cast(m) -> str:
     "Returns a string"
 
-
-@mod.capture
+@mod.capture(rule="{self.c_pointers}")
 def c_pointers(m) -> str:
     "Returns a string"
+    return m.c_pointers
 
 
-@mod.capture
+@mod.capture(rule="{self.c_signed}")
 def c_signed(m) -> str:
     "Returns a string"
+    return m.c_signed
 
 
-@mod.capture
+@mod.capture(rule="{self.c_types}")
 def c_types(m) -> str:
     "Returns a string"
+    return m.c_types
 
 
-@mod.capture
+@mod.capture(rule="{self.c_types}")
+def c_types(m) -> str:
+    "Returns a string"
+    return m.c_types
+
+
+@mod.capture(rule="{self.stdint_types}")
 def stdint_types(m) -> str:
     "Returns a string"
+    return m.stdint_types
 
 
-@mod.capture
+@mod.capture(rule="{self.stdint_signed}")
 def stdint_signed(m) -> str:
     "Returns a string"
+    return m.stdint_signed
 
-
-@mod.capture
+@mod.capture(rule="[<self.c_signed>]<self.c_types>[<self.c_pointers>]")
 def c_variable(m) -> str:
     "Returns a string"
+    return " ".join(list(m))
+
+
+# NOTE: we purposely we don't have a space after signed, to faciltate stdint
+# style uint8_t constructions
+@ctx.capture(rule="[<self.c_signed>]<self.c_types> [<self.c_pointers>+]")
+def c_cast(m) -> str:
+    return "(" + " ".join(list(m)) + ")"
+
+
+# NOTE: we purposely we don't have a space after signed, to faciltate stdint
+# style uint8_t constructions
+@ctx.capture(rule="[<self.stdint_signed>]<self.stdint_types> [<self.c_pointers>+]")
+def c_stdint_cast(m) -> str:
+    return "(" + "".join(list(m)) + ")"
+
+@ctx.capture(rule="[<self.c_signed>]<self.c_types>[<self.c_pointers>]")
+def c_variable(m) -> str:
+    return " ".join(list(m))
 
 
 @ctx.capture(rule="{self.c_pointers}")
@@ -195,11 +222,6 @@ def c_types(m) -> str:
     return m.c_types
 
 
-@ctx.capture(rule="{self.c_types}")
-def c_types(m) -> str:
-    return m.c_types
-
-
 @ctx.capture(rule="{self.stdint_types}")
 def stdint_types(m) -> str:
     return m.stdint_types
@@ -208,26 +230,6 @@ def stdint_types(m) -> str:
 @ctx.capture(rule="{self.stdint_signed}")
 def stdint_signed(m) -> str:
     return m.stdint_signed
-
-
-# NOTE: we purposely we don't have a space after signed, to faciltate stdint
-# style uint8_t constructions
-@ctx.capture(rule="[<self.c_signed>]<self.c_types> [<self.c_pointers>+]")
-def c_cast(m) -> str:
-    return "(" + " ".join(list(m)) + ")"
-
-
-# NOTE: we purposely we don't have a space after signed, to faciltate stdint
-# style uint8_t constructions
-@ctx.capture(rule="[<self.stdint_signed>]<self.stdint_types> [<self.c_pointers>+]")
-def c_stdint_cast(m) -> str:
-    return "(" + "".join(list(m)) + ")"
-
-
-@ctx.capture(rule="[<self.c_signed>]<self.c_types>[<self.c_pointers>]")
-def c_variable(m) -> str:
-    return " ".join(list(m))
-
 
 @ctx.action_class("user")
 class user_actions:
@@ -264,4 +266,3 @@ class user_actions:
 
     def code_insert_library(text: str, selection: str):
         actions.user.paste("include <{}>".format(selection))
-

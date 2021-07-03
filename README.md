@@ -1,11 +1,6 @@
-# Talon documentation
-For up-to-date documentation on Talon's API and features, please visit https://talon.wiki/. 
-
-https://talon.wiki/unofficial_talon_docs/ is a great place to learn about Talon files, actions, and voice command definitions.
-
 # knausj_talon
 
-Talon configs for Mac, Windows, and Linux. Very much in progress. This is also intended to work with both Dragon Naturally Speaking and wav2letter.\
+Talon configs for Mac, Windows, and Linux. Very much in progress. This is also intended to work with both Dragon Naturally Speaking and wav2letter.
 
 Notes: 
 - commands are subject to change. We do our best to minimize changes, but we are moving to an [object][verb] standard slowly but surely.
@@ -18,46 +13,51 @@ Clone repo into `~/.talon/user`
 
 ```insert code:
 cd ~/.talon/user
-git clone git@github.com:knausj85/knausj_talon.git knausj_talon
+git clone https://github.com/knausj85/knausj_talon knausj_talon
 ```
     
 Alternatively, access the directory by right clicking the Talon icon in taskbar, clicking Scripting>Open ~/talon, and navigating to user.
 
-The folder structure should look like:
+The folder structure should look something like the below:
 
 ```insert code:
 ~/.talon/user/knausj_talon
+~/.talon/user/knausj_talon/apps
 ~/.talon/user/knausj_talon/code
 ~/.talon/user/knausj_talon/lang
+~/.talon/user/knausj_talon/misc
+~/.talon/user/knausj_talon/modes
+~/.talon/user/knausj_talon/mouse_grid
+~/.talon/user/knausj_talon/talon_draft_window
+~/.talon/user/knausj_talon/text
+...
 ```
 
 ## Windows setup
-
-Note: Talon for Windows should be placed in the Program Files directory (or another 'secure' directory): `C:\Program Files\talon` Talon has been signed and utilizes uiAccess for several goodies: this will allow Talon to work with applications that are run as admin.
 
 Clone repo into `%AppData%\Talon\user` 
 
 ```insert code:
 cd %AppData%\Talon\user
-git clone git@github.com:knausj85/knausj_talon.git knausj_talon
+git clone https://github.com/knausj85/knausj_talon knausj_talon
 ```
     
 Alternatively, access the directory by right clicking the Talon icon in taskbar, clicking Scripting>Open ~/talon, and navigating to user.
     
-The folder structure should look like:
+The folder structure should look something like the below:
 
 ```insert code:
 %AppData%\Talon\user\knausj_talon
+%AppData%\Talon\user\knausj_talon\apps
 %AppData%\Talon\user\knausj_talon\code
 %AppData%\Talon\user\knausj_talon\lang
+%AppData%\Talon\user\knausj_talon\misc
+%AppData%\Talon\user\knausj_talon\modes
+%AppData%\Talon\user\knausj_talon\mouse_grid
+%AppData%\Talon\user\knausj_talon\talon_draft_window
+%AppData%\Talon\user\knausj_talon\text
+...
 ```
-
-## wav2letter setup
-
-If you're using wav2letter (aka NOT Dragon), uncomment this line in sleep_mode.talon.
-https://github.com/knausj85/knausj_talon/blob/master/modes/sleep_mode.talon#L9
-
-This helps avoid unexpected "Talon wake" commands. Depending on the specific model you're using, you may need to adjust the talon wake/talon sleep commands in modes.talon 
 
 ## Getting started with Talon
 
@@ -168,10 +168,10 @@ Specific programming languages may be activated by voice commands, or via title 
 
 Activating languages via commands will enable the commands globally, e.g. they'll work in any application. This will also disable the title tracking method (code.language in .talon files) until the "clear language modes" voice command is used.
 
-The commands are defined here: 
-https://github.com/knausj85/knausj_talon/blob/69d0207c873e860002b137f985dd7cb001183a47/modes/modes.talon#L29
+The commands for enabling languages are defined here: 
+https://github.com/knausj85/knausj_talon/blob/master/modes/language_modes.talon
 
-By default, title tracking activates coding languages in supported applications such as VSCode, Visual Studio (requires plugin),  and Notepad++. 
+By default, title tracking activates coding languages in supported applications such as VSCode, Visual Studio (requires plugin), and Notepad++. 
 
 To enable title tracking for your application: 
 1. The active filename (including extension) must be included in the editor's title
@@ -208,6 +208,26 @@ Notes:
 • Both Windows Explorer and Finder hide certain files and folder by default, so it's often best to use the imgui to list the options before issuing commands. 
 
 • If there no hidden files or folders, and the items are displayed in alphabetical order, you can typically issue the `follow <number>`, `file <number>` and `open <number>` commands based on the displayed order.
+
+To implement support for a new program, you need to implement the relevant file manager actions for your application and assert the user.file_manager tag.
+- There are a number of example implementations in the repository. Finder is a good example to copy and customize to your application as needed. 
+https://github.com/knausj85/knausj_talon/blob/5eae0b6a8f2269f24265e77feddbcc4bcf437c36/apps/mac/finder/finder.py#L16
+
+## Terminal commands
+
+Many terminal programs are supported out of the box, but you may not want all the commands enabled. 
+
+To disable various commandsets in your terminal, find the relevant talon file and enable/disable the tags for command sets as appropriate.
+
+```
+tag(): user.file_manager
+tag(): user.git
+tag(): user.kubectl
+tag(): user.tabs
+```
+
+For instance, kubectl commands (kubernetes) aren't relevant to everyone.
+
 
 ## Jetbrains commands
 
@@ -262,6 +282,8 @@ This repository is now officially a team effort. The following contributors have
 - @fidgetingbits
 - @knausj85 
 - @rntz
+- @splondike
+- @pokey
 
 Collaborators will reply to issues and pull requests as time and health permits. Please be patient.
 
@@ -317,3 +339,11 @@ user.code_libraries
 
 where appropriate. See e.g. csharp.py/csharp.talon. At least, until we come up with something better 👍 
 
+## Automated tests
+
+There are a number of automated tests in the repository which are run outside of the Talon environment. To run them make sure you have the `pytest` python package installed. You can then just run the `pytest` command from the repository root to execute all the tests.
+
+# Talon documentation
+For official documentation on Talon's API and features, please visit https://talonvoice.com/docs/. 
+
+For community-generated documentation on Talon, please visit https://talon.wiki/
