@@ -2,7 +2,6 @@ os: linux
 tag: user.gdb
 -
 tag(): user.debugger
-<<<<<<< HEAD
 tag(): user.terminal_program
 tag(): user.readline
 
