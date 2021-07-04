@@ -15,8 +15,8 @@ action(browser.submit_form):
     key(enter)
 
 tab search:
-  browser.focus_address()
-  insert("% ")
+    browser.focus_address()
+    insert("% ")
 tab search <user.text>$:
   browser.focus_address()
   insert("% {text}")
@@ -32,4 +32,3 @@ archive that:
     key(home)
     insert("https://web.archive.org/web/*/")
     key(end enter)
-

@@ -15,38 +15,6 @@ settings():
     user.code_protected_variable_formatter = "SNAKE_CASE"
     user.code_public_variable_formatter = "SNAKE_CASE"
 
-
-###
-# Generic Actions - see appropriate generic talon file for spoken command
-###
-
-# operators - see lang/operators.talon
-action(user.code_operator_assignment): " = "
-action(user.code_operator_subtraction): " - "
-action(user.code_operator_subtraction_assignment): " -= "
-action(user.code_operator_addition): " + "
-action(user.code_operator_addition_assignment): " += "
-action(user.code_operator_multiplication): " * "
-action(user.code_operator_multiplication_assignment): " *= "
-action(user.code_operator_division): " / "
-action(user.code_operator_division_assignment): " /= "
-
-# comments - see lang/code_comment.talon
-action(user.code_comment): "\""
-
-# conditionals - see lang/programming.talon
-action(user.code_state_if):
-  insert("if ")
-action(user.code_state_else_if):
-  insert("elseif ")
-action(user.code_state_else):
-  insert("else")
-
-action(user.code_private_function): "function "
-action(user.code_protected_function): "function "
-action(user.code_public_function): "function "
-
-
 ###
 # VIM Script Specific
 ###
@@ -63,7 +31,7 @@ assign [<user.vimscript_scope>] (variable|var) [<user.text>] [over]:
 <user.vimscript_functions>:
     insert("{vimscript_functions} ")
 
-# XXX - possibly overlap with some programming.talon
+    # XXX - possibly overlap with some programming.talon
 state command: "command! "
 state end if: "endif"
 state end for: "endfor"

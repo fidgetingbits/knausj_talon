@@ -6,6 +6,7 @@ mode: user.windbg
 -
 tag(): user.debugger
 tag(): user.windbg
+<<<<<<< HEAD
 
 ##
 # Generic debugger actions
@@ -101,21 +102,13 @@ action(user.debugger_list_modules):
 
 
 # Registers depend on architecture mode
+=======
+>>>>>>> v0.2_actions
 register <user.registers>:
     key(@)
     insert("{registers}")
-
-# Type inspection
-action(user.debugger_inspect_type):
-    insert("dt ")
-
-# Convenience
-action(user.debugger_clear_line):
-    key("ctrl-a backspace")
-##
-# Windbg specific functionality
-##
-
+    
+    # Type inspection
 open help: insert(".hh\n")
 
 # xxx - add window switching
@@ -128,15 +121,15 @@ reload symbols:
     insert(".reload\n")
 loaded modules:
     insert("lm l\n")
-
+    
 display pointers:
     insert("dps ")
-
-# XXX - should be generic
+    
+    # XXX - should be generic
 dereference pointer:
     insert("poi()")
     edit.left()
-
+    
 show version: key(ctrl-alt-w)
 
 ##
