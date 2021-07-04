@@ -795,6 +795,7 @@ def vim_select_motion(m) -> str:
 #        v.set_insert_mode()
 #        scripting.core.MainActions.insert(text)
 
+
 # These are actions you can call from vim.talon via `user.method_name()` in
 # order to modify modes, run commands in specific modes, etc
 @mod.action_class

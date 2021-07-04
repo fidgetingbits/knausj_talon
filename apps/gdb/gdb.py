@@ -111,3 +111,19 @@ class UserActions:
     def pop():
         """Optional way of pressing enter via pop sound"""
         actions.key("enter")
+
+    def debugger_backtrace():
+        actions.auto_insert("bt\n")
+
+    def debugger_exit():
+        actions.auto_insert("quit\n")
+
+    def debugger_exit_force():
+        actions.auto_insert("quit\ny\n")
+
+    def debugger_disassemble_here():
+        actions.insert("x/10i $pc\n")
+        # Type inspection
+
+    def debugger_dump_ascii_string():
+        actions.insert("x/s ")

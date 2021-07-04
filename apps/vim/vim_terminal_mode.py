@@ -8,6 +8,12 @@ tag: user.vim_terminal
 """
 
 
+@ctx.action_class("edit")
+class EditActions:
+    def page_up():
+        actions.key("ctrl-\\ ctrl-n ctrl-b")
+
+
 def parse_vim_term_title(window):
     """a variety of parsing to gracefully handle various shell commands
     running inside of a vim terminal.
@@ -15,23 +21,26 @@ def parse_vim_term_title(window):
 
     """
 
-    if (window != ui.active_window() or 
-        not window.title.startswith("VIM MODE:t") or 
-        "TERM:" not in window.title):
+    if (
+        window != ui.active_window()
+        or not window.title.startswith("VIM MODE:t")
+        or "TERM:" not in window.title
+    ):
 
         ctx.tags = []
         return
 
-    # pull a TERM: line out of something potentially like 
+    # pull a TERM: line out of something potentially like
     # VIM MODE:t RPC:/tmp/nvimlVeccr/0  TERM:gdb (term://~//161917:/usr/bin/zsh) zsh
     index = window.title.find("TERM:")
-    shell_command = window.title[index+len("TERM:"):]
+    shell_command = window.title[index + len("TERM:") :]
     if ":" in shell_command:
         shell_command = shell_command.split(":")[0]
     shell_command = shell_command.split(" ")[0]
 
     populate_shell_tags(shell_command)
     populate_language_modes(shell_command)
+
 
 def populate_language_modes(shell_command):
     """TODO: Docstring for populate_language_modes.
@@ -54,6 +63,7 @@ def populate_language_modes(shell_command):
     actions.user.code_clear_context_language()
     return
 
+
 def populate_shell_tags(shell_command):
     """TODO: Docstring for populate_shell_tags.
     :returns: TODO
@@ -74,13 +84,13 @@ def populate_shell_tags(shell_command):
     # XXX - there's probably a better way to deal with this
     fuzzy_shell_tags = {
         # Match on stuff like fzf running in floating term
-        #"term://": "user.readline",
-        "root@": "terminal", # hacky match for docker containers
+        # "term://": "user.readline",
+        "root@": "terminal",  # hacky match for docker containers
     }
     regex_shell_tags = {
-            r"^\w*@\w*": "terminal",
-            r"^\w*@\w*:.*[$#]": "terminal", # this is redundant with above, but ideally I would rather have something like this
-            }
+        r"^\w*@\w*": "terminal",
+        r"^\w*@\w*:.*[$#]": "terminal",  # this is redundant with above, but ideally I would rather have something like this
+    }
     if shell_command in shell_tags:
         ctx.tags = [shell_tags[shell_command]]
     else:
@@ -95,8 +105,9 @@ def populate_shell_tags(shell_command):
             if m is not None:
                 ctx.tags = [regex_shell_tags[expression]]
 
+        # ctx.tags = ["terminal"]
 
-        #ctx.tags = ["terminal"]
+
 #        if not found_fuzzy:
 #            print(f"WARNING: missing tag for shell cmd: {shell_command}")
 #            print(f"WARNING: consider updating vim_terminal.py: {shell_command}")

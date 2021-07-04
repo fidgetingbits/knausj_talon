@@ -7,8 +7,6 @@ mode: user.windbg
 tag(): user.debugger
 tag(): user.windbg
 
-action(user.debugger_break_here): ""
-
 register <user.registers>:
     key(@)
     insert("{registers}")

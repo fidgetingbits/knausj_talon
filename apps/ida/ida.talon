@@ -10,66 +10,7 @@ settings():
     # the number of opcodes to display next to assembly instructions, this will
     # depend on your architecture
     user.ida_opcode_count = 8
-
-##
-# Generic disassembler actions
-##
-
-# File handling
-action(user.disassembler_open_file):
-    key(alt-f)
-    sleep(100ms)
-    key(down enter)
-
-# Formatting
-action(user.disassembler_make_array): key(shift-8)
-action(user.disassembler_make_binary): key(b)
-action(user.disassembler_make_character): key(r)
-action(user.disassembler_make_code): key(c)
-action(user.disassembler_make_data): key(d)
-action(user.disassembler_make_decimal): key(h)
-action(user.disassembler_make_enum): key(m)
-action(user.disassembler_make_hex): key(q)
-action(user.disassembler_make_string): key(a)
-action(user.disassembler_make_structure_variable): key(alt-q)
-action(user.disassembler_make_unicode): key(alt-a)
-
-# Navigation
-action(user.disassembler_entry_point): key(ctrl-e)
-action(user.disassembler_jump_back): key(escape)
-action(user.disassembler_jump_address): key(g)
-action(user.disassembler_next_call): key(ctrl-alt-shift-6)
-action(user.disassembler_previous_call): key(ctrl-alt-shift-7)
-action(user.disassembler_function_start): key(ctrl-alt-shift-1)
-action(user.disassembler_function_end): key(ctrl-alt-shift-2)
-action(user.disassembler_false_branch):
-    key(ctrl-down)
-    sleep(100ms)
-    key(enter)
-action(user.disassembler_true_branch):
-    key(ctrl-down)
-    sleep(100ms)
-    key(down enter)
-action(user.disassembler_close_window): key(alt-f3)
-action(user.disassembler_cross_references_to): key(ctrl-x)
-action(user.disassembler_cross_references_from): key(ctrl-j)
 toggle graph: key(space)
-
-# Windowing
-action(user.disassembler_focus_disassembly): key(alt-2)
-
-# Searching
-action(user.disassembler_search_bytes): key(alt-b)
-action(user.disassembler_search_text): key(alt-t)
-action(user.disassembler_search_value): key(alt-i)
-action(user.disassembler_next_bytes): key(ctrl-b)
-action(user.disassembler_next_code): key(alt-c)
-action(user.disassembler_next_data): key(ctrl-d)
-action(user.disassembler_next_explored): key(ctrl-a)
-action(user.disassembler_next_text): key(ctrl-t)
-action(user.disassembler_next_unexplored): key(ctrl-u)
-action(user.disassembler_next_value): key(ctrl-i)
-action(user.disassembler_next_void): key(ctrl-v)
 
 # Documenting
 
@@ -105,7 +46,6 @@ open new file:
 load script file:
     key(alt-f7)
 
-# View menu
 
 # Open subviews
 quick view: key(ctrl-1)

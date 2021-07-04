@@ -13,55 +13,8 @@
 
 tag: user.readline
 -
-
-action(edit.undo):
-    key(ctrl-x ctrl-u)
-
-action(edit.up):
-    key(up)
-
-action(edit.down):
-    key(down)
-
-action(edit.left):
-    key(ctrl-b)
-
-action(edit.right):
-    key(ctrl-f)
-
-action(edit.word_left):
-    key(alt-b)
-
-action(edit.word_right):
-    key(alt-f)
-
-action(edit.line_start):
-    key(ctrl-a)
-
-action(edit.line_end):
-    key(ctrl-e)
-
-action(edit.delete_line):
-    key(ctrl-a)
-    key(ctrl-k)
-
-action(user.delete_line_beginning):
-    key(ctrl-u)
-
-action(user.delete_line_remaining):
-    key(ctrl-k)
-
-action(user.delete_word_right):
-    key(alt-d)
-
-action(user.delete_word_left):
-    key(ctrl-w)
-
-
-# XXX - make this generic
 clear screen: key(ctrl-l)
 line search: key(ctrl-r)
 found it: key(ctrl-J)
 punch it: key(ctrl-J enter)
 abort: key(ctrl-g)
-
