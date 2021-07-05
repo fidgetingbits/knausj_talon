@@ -23,4 +23,5 @@ class UserActions:
     def package_update_by_name(name: str):
         actions.insert(f"apt update {name}")
 
-    def packager(): actions.auto_insert('apt ')
+    def packager():
+        actions.auto_insert("apt ")
