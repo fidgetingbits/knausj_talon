@@ -21,14 +21,14 @@ until <number>: "until {number}"
 force clear all break points:
     insert("d br\n")
     insert("y\n")
-    
-    
+
+
 
 break [on] clipboard:
     insert("break ")
     key(ctrl-shift-v)
     key(enter)
-    
+
 clear screen: "shell clear\n"
 list [source]: "list\n"
 
@@ -57,8 +57,8 @@ hex dump clipboard:
     insert("x/100gx ")
     edit.paste()
     key(enter)
-    
-    # symbols
+
+# symbols
 symbol refresh: "sharedlibrary\n"
 
 # execution
@@ -94,8 +94,8 @@ resume from main:
 resume [from] (inf|inferior) <number_small>$:
     insert("inferior {number_small}\n")
     insert("c\n")
-    
-    # arguments
+
+# arguments
 set args: "set args "
 
 info source: "info source\n"

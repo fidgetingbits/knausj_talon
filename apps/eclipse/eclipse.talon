@@ -9,23 +9,11 @@ tag(): user.splits
 tag(): user.tabs
 # splits.py support end
 
-#multiple_cursor.py support begin
-#note: vscode has no explicit mode for multiple cursors
-# action(user.multi_cursor_add_above):
-# action(user.multi_cursor_add_below):
-# action(user.multi_cursor_add_to_line_ends):
-# action(user.multi_cursor_disable):
-# action(user.multi_cursor_enable):
-# action(user.multi_cursor_select_all_occurrences):
-# action(user.multi_cursor_select_fewer_occurrences):
-# action(user.multi_cursor_select_more_occurrences):
-#multiple_cursor.py support end
-
 please [<user.text>]:
     key(ctrl-3)
     insert(user.text or "")
     
-    # Sidebar
+# Sidebar
 bar explore: key(alt-shift-w p)
 # bar extensions:
 bar outline: key(alt-shift-q o)
@@ -61,10 +49,10 @@ panel variables:
     key(alt-shift-q)
     sleep(200ms)
     key(v)
-    # panel switch:
-    # panel terminal:
+# panel switch:
+# panel terminal:
     
-    # Settings
+# Settings
 show settings: key(alt-w p)
 show shortcuts: key(ctrl-shift-l)
 #show snippets:
@@ -81,8 +69,8 @@ file hunt [<user.text>]:
     key(ctrl-shift-r)
     sleep(50ms)
     insert(text or "")
-    # file copy path:
-    # file create sibling:
+# file copy path:
+# file create sibling:
 file create: key(ctrl-n)
 file open folder: key(alt-shift-w x)
 file rename:

@@ -50,7 +50,6 @@ push brackets:
     edit.up()
 
 declare <user.c_variable>:
-    insert("{c_variable} ")
 
 # Declare variables or structs etc.
 # Ex: int * myList
@@ -61,7 +60,7 @@ declare <user.c_variable>:
 declare <user.c_variable> <user.letter>:
     insert("{c_variable} {letter} ")
 
-    # Ex. (int *)
+# Ex. (int *)
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"
 standard cast to <user.c_stdint_cast>: "{c_stdint_cast}"

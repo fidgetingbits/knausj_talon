@@ -54,8 +54,6 @@ false: "False"
 #pass: "pass"
 self dot: "self,"
 
-
-
 index <user.word>: '["{word}"]'
 
 pie test: "pytest"
