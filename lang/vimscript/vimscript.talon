@@ -1,3 +1,4 @@
+mode: user.vimscript
 mode: user.auto_lang
 and code.language: vimscript
 
@@ -31,7 +32,7 @@ assign [<user.vimscript_scope>] (variable|var) [<user.text>] [over]:
 <user.vimscript_functions>:
     insert("{vimscript_functions} ")
 
-    
+
 # XXX - possibly overlap with some programming.talon
 state command: "command! "
 state end if: "endif"

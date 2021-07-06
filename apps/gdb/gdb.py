@@ -17,10 +17,6 @@ tag: user.gdb
 
 @ctx.action_class("user")
 class UserActions:
-    ##
-    # Generic debugger actions
-    ##
-
     # Code execution
     def debugger_step_into():
         actions.auto_insert("stepi\n")

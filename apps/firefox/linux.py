@@ -1,12 +1,10 @@
 from talon import Context, actions
-
 ctx = Context()
 ctx.matches = r"""
 os: linux
 app: Firefox
 app: firefox
 """
-
 
 @ctx.action_class("app")
 class AppActions:

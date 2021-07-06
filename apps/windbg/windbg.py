@@ -22,7 +22,6 @@ def windows_dlls(m) -> str:
     "Return an register"
     return m.windows_dlls
 
-
 # XXX - trigger alt-1 to hit command window for necessary commands?
 # ex: user.windbg_insert_in_cmd()
 #    edit.left()

@@ -17,8 +17,6 @@ settings():
     # whether or not to use uint_8 style datatypes
     #    user.use_stdint_datatypes = 1
 
-
-
 ^funky <user.text>$: user.code_default_function(text)
 ^static funky <user.text>$: user.code_private_static_function(text)
 
@@ -49,7 +47,7 @@ push brackets:
     key(enter)
     edit.up()
 
-declare <user.c_variable>:
+#declare <user.c_variable>:
 
 # Declare variables or structs etc.
 # Ex: int * myList
@@ -59,7 +57,7 @@ declare <user.c_variable>:
 
 declare <user.c_variable> <user.letter>:
     insert("{c_variable} {letter} ")
-
+    
 # Ex. (int *)
 cast to <user.c_cast>: "{c_cast}"
 basic cast to <user.c_basic_cast>: "{c_basic_cast}"

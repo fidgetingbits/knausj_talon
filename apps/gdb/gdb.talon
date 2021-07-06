@@ -30,6 +30,7 @@ break [on] clipboard:
     key(enter)
 
 clear screen: "shell clear\n"
+# information
 list [source]: "list\n"
 
 print: "p "
@@ -94,7 +95,7 @@ resume from main:
 resume [from] (inf|inferior) <number_small>$:
     insert("inferior {number_small}\n")
     insert("c\n")
-
+    
 # arguments
 set args: "set args "
 
