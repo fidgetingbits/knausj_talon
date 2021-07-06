@@ -9,3 +9,6 @@ debug active context:
 ^incorrect$: skip()
 debug lost context:
     user.debug_lost_context()
+
+debug registry:
+    user.debug_registry_lists()
