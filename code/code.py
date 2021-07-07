@@ -85,7 +85,12 @@ forced_context_language = None
 
 # Files that don't have specific extensions bit that are known to be associated
 # with specific languages. Ex: CMakeLists.txt is cmake
-special_file_map = {"CMakeLists.txt": "cmake", "Dockerfile": "docker"}
+special_file_map = {
+    "CMakeLists.txt": "cmake",
+    "Dockerfile": "docker",
+    "meson.build": "meson",
+}
+
 
 @mod.capture(rule="{user.code_functions}")
 def code_functions(m) -> str:
@@ -132,6 +137,7 @@ mod.mode("auto_lang")
 
 # Auto lang is enabled by default
 app.register("ready", lambda: actions.user.code_clear_language_mode())
+
 
 @mod.action_class
 class Actions:
