@@ -1,6 +1,7 @@
 mode: command
 -
 
+dot build: ".build"
 dot back up: ".bkp"
 dot (batch|bat): ".bat"
 dot (bin | bend): ".bin"
