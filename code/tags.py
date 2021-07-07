@@ -15,6 +15,7 @@ tagList = [
     "tmux",
     "windbg",
     "yay",
+    "meson",
     "apt",
     "buku",
     "ghidra_server",

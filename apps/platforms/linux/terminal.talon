@@ -27,6 +27,7 @@ tag(): user.timer_manager
 tag(): user.systemd
 tag(): user.pulse_audio
 tag(): user.npm
+tag(): user.meson
 
 # unset this if you use `bindkey -v`
 tag(): user.readline
