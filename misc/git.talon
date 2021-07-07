@@ -14,6 +14,11 @@ git checkout: "git checkout "
 git checkout master: "git checkout master\n"
 git checkout main: "git checkout main\n"
 git checkout <user.text>: "git checkout {text}"
+git checkout <number_small> before clip: 
+    insert("git checkout ")
+    edit.paste()
+    key("^:{number_small}")
+    key(enter)
 git cherry pick: "git cherry-pick "
 git cherry pick continue: "git cherry-pick --continue "
 git cherry pick abort: "git cherry-pick --abort "
