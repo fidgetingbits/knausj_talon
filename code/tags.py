@@ -16,6 +16,7 @@ tagList = [
     "windbg",
     "yay",
     "meson",
+    "ninja",
     "apt",
     "buku",
     "ghidra_server",
