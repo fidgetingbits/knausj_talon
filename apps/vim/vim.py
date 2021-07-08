@@ -948,13 +948,7 @@ class Actions:
         """run a given list of commands in command mode, preserve INSERT"""
         v = VimMode()
         v.set_command_mode()
-        if cmd[0] == ":":
-            actions.user.paste(cmd[1:])
-        else:
-            actions.user.paste(cmd)
-        # pasting a newline doesn't apply it
-        if cmd[-1] == "\n":
-            actions.key("enter")
+        v.insert_command_mode_command(cmd)
 
     # technically right now they run in in normal mode, but these calls will
     # ensure that any queued commands are removed
@@ -962,13 +956,7 @@ class Actions:
         """run a given list of commands in command mode, preserve INSERT"""
         v = VimMode()
         v.set_command_mode_exterm()
-        if cmd[0] == ":":
-            actions.user.paste(cmd[1:])
-        else:
-            actions.user.paste(cmd)
-        # pasting a newline doesn't apply it
-        if cmd[-1] == "\n":
-            actions.key("enter")
+        v.insert_command_mode_command(cmd)
 
     # Sometimes the .talon file won't know what mode to run something in, just
     # that it needs to be a mode that supports motions like normal and visual.
@@ -1142,6 +1130,17 @@ class VimMode:
             return self.TERMINAL
         elif self.is_command_mode():
             return self.COMMAND
+
+    def insert_command_mode_command(self, cmd):
+        """prepare the command to be pasted into command mode"""
+        # strip the new line to prevent it breaking on mac
+        scmd = cmd.rstrip("\n")
+        if scmd[0] == ":":
+            actions.user.paste(scmd[1:])
+        else:
+            actions.user.paste(scmd)
+        if cmd[-1] == "\n":
+            actions.key("enter")
 
     def set_normal_mode(self, auto=True):
         self.adjust_mode(self.NORMAL, auto=auto)
