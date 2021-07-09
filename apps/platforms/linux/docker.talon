@@ -62,6 +62,9 @@ docker [container] copy:
 docker [container] inspect:
     insert("sudo docker ps\n")
     insert("sudo docker inspect ")
+docker [container] attach:
+    insert("sudo docker ps\n")
+    insert("sudo docker attach ")
 
 
 # volumes
@@ -82,8 +85,10 @@ docker system prune all:
 
 ## docker Compose
 docker compose up: "docker-compose up\n"
+docker compose stop: "docker-compose start\n"
 docker compose stop: "docker-compose stop\n"
 docker compose build: "docker-compose build\n"
+docker compose kill: "docker-compose kill\n"
 
 # docker visualization (requires dockviz)
 docker image tree: "sudo dockviz images -t\n" 
