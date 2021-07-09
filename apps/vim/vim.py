@@ -11,7 +11,7 @@
 import time
 import enum
 
-from talon import Context, Module, actions, settings, ui, scripting
+from talon import Context, Module, actions, app, settings, ui, scripting
 import logging
 try:
     import pynvim
@@ -1131,14 +1131,22 @@ class VimMode:
         elif self.is_command_mode():
             return self.COMMAND
 
+    def insert_text(self, text):
+        if app.platform == "linux":
+            actions.user.paste(text)
+        else:
+            actions.insert(text)
+
     def insert_command_mode_command(self, cmd):
         """prepare the command to be pasted into command mode"""
         # strip the new line to prevent it breaking on mac
         scmd = cmd.rstrip("\n")
         if scmd[0] == ":":
-            actions.user.paste(scmd[1:])
+            self.insert_text(scmd[1:])
+            #actions.user.paste(scmd[1:])
         else:
-            actions.user.paste(scmd)
+            self.insert_text(scmd)
+            #actions.user.paste(scmd)
         if cmd[-1] == "\n":
             actions.key("enter")
 
