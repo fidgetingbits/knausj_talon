@@ -69,7 +69,7 @@ file (close|quite):
     user.vim_command_mode(":q\n")
 file (refresh|reload):
     user.vim_command_mode(":e!\n")
-print working directory: user.vim_command_mode(":pwd\n")
+(print working directory|folder show): user.vim_command_mode(":pwd\n")
 pivot file:
     user.vim_command_mode(":lcd %:p:h\n")
     #pivot (parent|back):
