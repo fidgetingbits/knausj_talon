@@ -32,6 +32,7 @@ private_snippets = {
     "print success": "psuccess",
     "print fail": "pfail",
     "dick string": "dstr",
+    "dick format string": "dfstr",
     "new arg parser": "argparse",
     "add argument": "narg",
     "dock param": "dockparam",
