@@ -8,6 +8,7 @@ mod.list("folder_paths_public", desc="Common paths")
 mod.list("folder_paths_private", desc="Common private paths")
 ctx = Context()
 
+TALON_REPO="fidget"
 arch_linux_paths = { "packman hooks": "/etc/pacman.d/hooks/",}
 # paths that will work with pivot command
 linux_folder_paths = {
@@ -28,7 +29,9 @@ linux_folder_paths = {
     "shell config": "~/.ohmyzsh/",
     "shell functions": "~/.ohmyzsh/custom/functions/",
     "dot files": "~/dotfiles/",
-    "custom snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
+    "custom snippets": "~/.vim/custom-snippets/",
+    "vim snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
+    "talon": f"{actions.path.talon_user()}/{TALON_REPO}/",
     "back": "../",
 }
 
@@ -47,6 +50,10 @@ linux_file_paths = {
     "boot config": "/boot/grub/grub.cfg",
     "journal config": "/etc/systemd/journald.conf", 
     "tunnel config": "~/.ssh/config", 
+    "shell config": "~/.zshrc", 
+    "poly bar": "~/.config/polybar/config", 
+    "eye three": "~/.i3/config", 
+    "config": "~/.vimrc", 
 }
 
 # this is used for specific commands like pivot

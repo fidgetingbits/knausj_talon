@@ -4,15 +4,9 @@ app: vim
 ###
 # Convenience for opening my different files
 ###
-open talon (directory|dir):
-    user.vim_command_mode_exterm(":lcd ~/.talon/user/fidget/\n")
 edit my vim scripts:
     user.vim_command_mode_exterm(":source ~/.vim/sessions/talon_vim.session\n")
 
-open custom snippets:
-    user.vim_command_mode_exterm(":e ~/.vim/custom-snippets\n")
-open vim snippets:
-    user.vim_command_mode_exterm(":e ~/.vim/plugged/vim-snippets/UltiSnips/\n")
 open markdown snippets:
     user.vim_command_mode_exterm(":e ~/.vim/plugged/vim-snippets/UltiSnips/markdown.snippets\n")
 open python snippets:
@@ -25,24 +19,17 @@ open talon plugins:
     user.vim_command_mode_exterm(":e ~/source/talon/releases/latest/resources/talon_plugins\n")
 open talon python:
     user.vim_command_mode_exterm(":e ~/source/talon/releases/latest/resources/python/lib/python3.7/site-packages/talon\n")
-open config:
-    user.vim_command_mode_exterm(":e ~/.vimrc\n")
-open poly bar:
-    user.vim_command_mode_exterm(":e ~/.config/polybar/config\n")
-open eye three:
-    user.vim_command_mode_exterm(":e ~/.i3/config\n")
-open shell config:
-    user.vim_command_mode_exterm(":e ~/.zshrc\n")
-open tunnel config:
-    user.vim_command_mode_exterm(":e ~/.ssh/config\n")
+open <user.paths>:
+    user.vim_command_mode_exterm(":e {paths}\n")
 
 ###
 # Admin
 ###
-dav mail session:
-    user.vim_command_mode_exterm(":source ~/.vim/sessions/davmail.session")
+# XXX - make this a look up the actual sessions that exist in that folder
 scratch session:
     user.vim_command_mode_exterm(":source ~/.vim/sessions/scratch.session")
+stellaris session:
+    user.vim_command_mode_exterm(":source ~/.vim/sessions/stellaris.session")
 
 ###
 #
@@ -106,9 +93,6 @@ convert string to stack:
     user.vim_command_mode(":call String_to_stack_buffer()")
     edit.left()
 
-stellaris session:
-    user.vim_command_mode_exterm(":source ~/.vim/sessions/stellaris.session")
 
 toggle debug log:
     user.vim_command_mode(":call ToggleVerbose()\n")
-
