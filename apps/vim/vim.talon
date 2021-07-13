@@ -655,14 +655,14 @@ reselect: user.vim_normal_mode_exterm("gv")
 
 # NOTE: Below is duplicate command with vim_terminal.talon, but included in
 # case user doesn't have `VIM mode:t` in titlestring
-(escape|pop) terminal:
+(escape|pop) (term|terminal):
     key(ctrl-\)
     key(ctrl-n)
     
-new terminal:
+new (term|terminal):
     user.vim_normal_mode_exterm(":term\n")
     
-force new terminal:
+force new (term|terminal):
     user.vim_normal_mode_exterm(":term!\n")
     
 [new] (split|horizontal) (term|terminal):
