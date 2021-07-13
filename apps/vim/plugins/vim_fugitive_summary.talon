@@ -4,7 +4,7 @@
 # ex: let &titlestring ='VIM MODE:%{mode()} RPC:%{v:servername} %{FugitiveStatusline()} (%f) %t'
 # XXX - need to make sure not to conflict with vim bindings
 # XXX - missing a significant amount of commands
-
+app: vim
 tag: user.vim_fugitive_summary
 and win.title: /\[Git/
 -
@@ -22,13 +22,14 @@ exclude [this file]: "gI"
 
 # Navigation maps
 open file: key(o)
-open vertical file: key(gO)
+open vertical file: insert(gO)
 open tab file: key(O)
 preview file: key(p)
 
 # Commit maps
 
-commit [changes]: "cc"
+commit [changes]: 
+    insert("cc")
 amend [last commit]: "ca"
 
 # Checkout/branch maps
