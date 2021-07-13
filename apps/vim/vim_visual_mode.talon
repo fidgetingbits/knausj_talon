@@ -48,3 +48,9 @@ yank with numb:
     # this turns @n into a scratch register. XXX - we may want to document
     # this eventually
     user.vim_command_mode_exterm(":redir @n | silent! :'<,'>number | redir END | let @+=@n\n")
+
+search that:
+    insert("y/\\V")
+    key(ctrl-r)
+    insert("=escape(@\",'/\\')")
+    key("enter:2")
