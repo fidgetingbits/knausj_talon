@@ -181,15 +181,12 @@ generate see scope database:
 pee grep: "pgrep "
 pee kill: "pkill "
 process list: "ps -ef\n"
+process filter list: "ps -ef | rg -i "
 process top: "htop\n"
-head: "head "
-head <number_small>: "head -n {number_small} "
-(where am I|print working directory): "pwd\n"
+file head: "head "
+file head <number_small>: "head -n {number_small} "
+folder show: "pwd\n"
 
-
-# XXX - ~/.edit/sessions/<tab>
-edit session:
-    insert("edit -S ")
 
 lazy edit:
     insert("edit ")
@@ -230,7 +227,8 @@ tar ball create: "tar -cvJf"
 tar ball [extract]: "tar -xvaf "
 file extract: "tar -xvaf "
 file unzip: "unzip "
-file seven extract: "7z e "
+file seven extract: "7z x "
+file seven list: "7z l "
 tar ball list: "tar -tf "
 (un zip|extract zip): "unzip "
 
@@ -254,7 +252,6 @@ run script: "./"
 run again:
     insert("./")
     key(up enter)
-run top: "htop\n"
 run vim: "vim "
 run make: "make\n"
 run see make: "cmake "
