@@ -152,7 +152,8 @@ now grep:
 # networking
 net [work] I P: "ip addr\n"
 net [work] (route|routes): "ip route\n"
-net stat: "netstat -ant\n"
+net stat all: "netstat -antp\n"
+net (stat listen|listening): "netstat -lnpt\n"
 net trace: "traceroute "
 net ping: "ping "
 net cat: "nc -vv "
