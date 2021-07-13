@@ -4,6 +4,7 @@ ctx = Context()
 ctx.matches = r"""
 win.title: /VIM MODE:c/
 """
+ctx.tags = ["user.vim_command_mode"]
 
 
 @ctx.action_class("edit")

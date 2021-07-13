@@ -5,51 +5,52 @@ ctx.matches = r"""
 win.title: /VIM MODE:v/
 win.title: /VIM MODE:V/
 """
+ctx.tags = ["user.vim_visual_mode"]
 
 @ctx.action_class("edit")
 class EditActions:
-    # the distinction in visual motives that we assume that there is already a
-    # selection, so when we're extending a selection in the opposite direction
-    # (backwards) we want a prefix an o beforehand so that it actually extends,
-    # rather than changing directions.
 
+    # when we're extending a selection in the opposite direction (backwards) we
+    # need to a prefix an o beforehand so that it actually extends, rather than
+    # changing directions.
     def extend_line_up():
-        actions.user.vim_visual_mode("ok^o")
+        actions.user.insert("ok^o")
 
     def extend_line_down():
-        actions.user.vim_visual_mode("j^")
+        actions.user.insert("j^")
 
     def extend_left():
-        actions.user.vim_visual_mode("oho")
+        actions.user.insert("oho")
 
     def extend_right():
-        actions.user.vim_visual_mode("l")
+        actions.user.insert("l")
 
     def extend_word_left():
-        actions.user.vim_visual_mode("obo")
+        actions.user.insert("obo")
 
     def extend_word_right():
-        actions.user.vim_visual_mode("e")
+        actions.user.insert("e")
 
     def select_word():
-        actions.user.vim_visual_mode("e")
+        actions.user.insert("e")
 
     def extend_line_start():
-        actions.user.vim_visual_mode("o^o")
+        actions.user.insert("o^o")
 
     def extend_line_end():
-        actions.user.vim_visual_mode("$")
+        actions.user.insert("$")
 
     def extend_file_start():
-        actions.user.vim_visual_mode("ogg0o")
+        actions.user.insert("ogg0o")
 
     def extend_file_end():
-        actions.user.vim_visual_mode("G")
+        actions.insert("G")
         # XXX - This should be a callable function so we can do things like:
         #       '.swap on this <highlight motion>'
         #       'swap between line x, y'
         # assumes visual mode
 
     def selected_text():
+        # gv to reselect
         actions.insert("ygv")
         return clip.get()

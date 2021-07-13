@@ -13,7 +13,7 @@ class EditActions:
     # mode we select up we want to select the current line in the one above, as
     # otherwise there is no current selection
     def extend_line_up():
-        actions.user.vim_normal_mode("Vk")
+        actions.user.insert("Vk")
 
     def extend_line_down():
-        actions.user.vim_normal_mode("Vj")
+        actions.user.insert("Vj")
