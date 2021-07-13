@@ -54,6 +54,9 @@ vertical (shell|terminal):
 # XXX - like also need to match the generic talon commands (snap?)
 shuffle <number_small>:  user.system_command("i3-msg move container to workspace {number_small}")
 shuffle ten: user.system_command("i3-msg move container to workspace 10")
+shuffle (parent|all) <number_small>: 
+    user.system_command("i3-msg focus parent")
+    user.system_command("i3-msg move container to workspace {number_small}")
 shuffle flip: user.system_command("i3-msg move container to workspace back_and_forth")
 shuffle left: user.system_command("i3-msg move left")
 shuffle right: user.system_command("i3-msg move right")
