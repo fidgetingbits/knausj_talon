@@ -6,7 +6,6 @@ win.title: /VIM MODE:v/
 win.title: /VIM MODE:V/
 """
 
-
 @ctx.action_class("edit")
 class EditActions:
     # the distinction in visual motives that we assume that there is already a
@@ -52,6 +51,5 @@ class EditActions:
         # assumes visual mode
 
     def selected_text():
-        actions.user.vim_visual_mode("y")
-        actions.user.vim_visual_mode("gv")
+        actions.insert("ygv")
         return clip.get()
