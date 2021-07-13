@@ -25,13 +25,14 @@ linux_folder_paths = {
     "user local": "/usr/local/",
     "user local bin": "/usr/local/bin",
     "user local lib": "/usr/local/lib",
+    "user local config": "/usr/local/etc",
     "log": "/var/log/",
     "shell config": "~/.ohmyzsh/",
     "shell functions": "~/.ohmyzsh/custom/functions/",
     "dot files": "~/dotfiles/",
     "custom snippets": "~/.vim/custom-snippets/",
     "vim snippets": "~/.vim/plugged/vim-snippets/UltiSnips/",
-    "talon": f"{actions.path.talon_user()}/{TALON_REPO}/",
+    "talon": f"~/.talon/user/{TALON_REPO}/",
     "back": "../",
 }
 
