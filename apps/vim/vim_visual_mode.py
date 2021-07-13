@@ -1,4 +1,4 @@
-from talon import Context, actions
+from talon import Context, actions, clip
 
 ctx = Context()
 ctx.matches = r"""
@@ -50,3 +50,8 @@ class EditActions:
         #       '.swap on this <highlight motion>'
         #       'swap between line x, y'
         # assumes visual mode
+
+    def selected_text():
+        actions.user.vim_visual_mode("y")
+        actions.user.vim_visual_mode("gv")
+        return clip.get()
