@@ -99,7 +99,7 @@ class win_actions:
         if len(result) > 1:
             result = result[-1]
         # print(f"{result}")
-        return result
+        return result.strip()
 
 #    def file_ext():
 #        ext = actions.win.filename().split(".")[-1]
