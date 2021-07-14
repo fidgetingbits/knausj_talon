@@ -49,6 +49,8 @@ yank with numb:
     # this eventually
     user.vim_command_mode_exterm(":redir @n | silent! :'<,'>number | redir END | let @+=@n\n")
 
+# XXX - we could add something with motions, so we search for something
+# selected via motion
 search that:
     insert("y/\\V")
     key(ctrl-r)
