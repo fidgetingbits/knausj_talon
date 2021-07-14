@@ -98,11 +98,8 @@ class win_actions:
         # Assumes the last word after the last ) entry has the filename
         if len(result) > 1:
             result = result[-1]
-        # print(result)
-        if "." in result:
-            return result
-        return ""
-
+        # print(f"{result}")
+        return result
 
 #    def file_ext():
 #        ext = actions.win.filename().split(".")[-1]
