@@ -1,4 +1,5 @@
 from talon import Context, Module, actions, settings
+# XXX - missing string concatenation, more explicit equality operator, etc
 
 mod = Module()
 ctx = Context()
@@ -73,6 +74,31 @@ class UserActions:
 
     def code_operator_division_assignment():
         actions.auto_insert(" /= ")
+
+    # XXX - we should technically use ==# or ==? here
+    def code_operator_equal():
+        actions.auto_insert(" == ")
+
+    def code_operator_not_equal():
+        actions.auto_insert(" != ")
+
+    def code_operator_greater_than():
+        actions.auto_insert(" > ")
+
+    def code_operator_greater_than_or_equal_to():
+        actions.auto_insert(" >= ")
+
+    def code_operator_less_than():
+        actions.auto_insert(" < ")
+
+    def code_operator_less_than_or_equal_to():
+        actions.auto_insert(" <= ")
+
+    def code_operator_and():
+        actions.auto_insert(" && ")
+
+    def code_operator_or():
+        actions.auto_insert(" || ")
 
     def code_comment():
         actions.auto_insert('"')
